@@ -2,16 +2,17 @@
     <div class="login-wrapper">
         <div class="login">
             <form @submit.prevent="submit">
-                <div class="panel is-primary">
-                    <div class="panel-heading">
-                        SECURITY CHECK
+                <div class="box">
+                    <div class="box-heading">
+                        <div class="box-heading-text">
+                            Document Tracking System
+                        </div>
                     </div>
 
-                    <div class="panel-body">
-
-<!--                        <div class="img-container">-->
-<!--                            <img class="img" src="/img/qrlogo.png" />-->
-<!--                        </div>-->
+                    <div class="box-body">
+                       <div class="img-container">
+                           <img class="img" src="/img/save-files.png" />
+                       </div>
                         <b-field label="Username" label-position="on-border"
                             :type="this.errors.username ? 'is-danger':''"
                             :message="this.errors.username ? this.errors.username[0] : ''">
@@ -22,7 +23,7 @@
                             <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
                         </b-field>
 
-                        <div class="buttons">
+                        <div class="buttons is-center">
                             <button :class="btnClass">LOGIN</button>
                         </div>
                     </div>
@@ -46,7 +47,8 @@ export default {
             btnClass: {
                 'is-primary': true,
                 'is-loading': false,
-                'button': true
+                'button': true,
+                'is-fullwidth' : true
             },
 
             errors: {},
@@ -93,11 +95,18 @@ export default {
     .img-container{
         display: flex;
         justify-content: center;
+        padding: 25px;
     }
 
     .img{
         height: 200px;
     }
 
+    .box-heading-text{
+        font-weight: bold;
+        font-size: 1.4em;
+        text-align: center;
+        padding: 25px;
+    }
 
 </style>

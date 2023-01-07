@@ -43,9 +43,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-//    public function showLoginForm (){
-//        return view('auth.login');
-//    }
+    // public function showLoginForm (){
+    //     return view('auth.login');
+    // }
 
     public function login(Request $request)
     {
@@ -65,6 +65,7 @@ class LoginController extends Controller
             return $user;
             // return redirect()->intended('dashboard');
         }
+
         return response()->json([
             'errors' => [
                 'username' => ['Username and password error. Access denied.']
