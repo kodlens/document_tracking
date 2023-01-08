@@ -21,7 +21,6 @@ Route::get('/', function () {
 });
 
 
-
 Auth::routes([
     'login' => false,
     'register' => false, // Registration Routes...
@@ -30,11 +29,21 @@ Auth::routes([
 ]);
 
 
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+
+Route::get('/get-user', function(){
+    if(Auth::check()){
+        return Auth::user();
+    }
+
+    return [];
+});
+
+
+
+Route::post('/custom-login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
-
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -45,28 +54,46 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
 
 
+//LIASON
+Route::resource('/liason-home', App\Http\Controllers\Liason\LiasonHomeController::class);
+Route::get('/search-track-no', [App\Http\Controllers\Liason\LiasonHomeController::class, 'searchTrackNo']);
+
+Route::resource('/documents', App\Http\Controllers\Liason\LiasonDocumentController::class);
+Route::get('/get-documents', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocuments']);
+Route::get('/get-document-routes', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocumentRoutes']);
+Route::post('/document-forward/{docId}', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'forwardDoc']);
+
+
+
+//STAFF
+Route::resource('/staff-home', App\Http\Controllers\Staff\StaffHomeController::class);
+
+
+Route::get('/get-forwarded-documents', [App\Http\Controllers\Staff\ForwardedDocumentController::class, 'getForwardedDocument']);
+
+Route::post('/document-receive/{id}', [App\Http\Controllers\Staff\ReceiveDocumentController::class, 'receiveDocument']);
+
+Route::post('/document-process/{id}', [App\Http\Controllers\Staff\ProcessDocumentController::class, 'processDocument']);
+
+Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\ForwardDocumentController::class, 'forwardDocument']);
+
 
 
 /*     ADMINSITRATOR          */
-Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
+Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
 
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
 
-Route::resource('/items', App\Http\Controllers\Administrator\ItemController::class);
-Route::get('/get-items', [App\Http\Controllers\Administrator\ItemController::class, 'getItems']);
+Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
+Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
 
-Route::resource('/stock-in', App\Http\Controllers\Administrator\StockInController::class);
-Route::get('/get-stock-ins', [App\Http\Controllers\Administrator\StockInController::class, 'getStockIns']);
-
-
-
-
+Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
+Route::get('/get-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
 
 
 /*     ADMINSITRATOR          */
-
 
 Route::get('/session', function(){
     return Session::all();

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Syslog;
 
 
 class LoginController extends Controller
@@ -38,6 +37,8 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+     
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -46,9 +47,12 @@ class LoginController extends Controller
     // public function showLoginForm (){
     //     return view('auth.login');
     // }
+    
 
     public function login(Request $request)
     {
+      
+
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
@@ -57,11 +61,6 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            
-            Syslog::create([
-                'syslog' => 'Successfully log in to the system',
-                'username' => $user->username
-            ]);
             return $user;
             // return redirect()->intended('dashboard');
         }
@@ -74,13 +73,6 @@ class LoginController extends Controller
     }
 
     public function logout(Request $req){
-        $user = Auth::user();
-            
-        // Syslog::create([
-        //     //'syslog' => 'Successfully log out to the system',
-        //     'username' => $user->username
-        // ]);
-
 
         Auth::logout();
         $req->session()->invalidate();

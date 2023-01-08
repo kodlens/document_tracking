@@ -60,11 +60,22 @@ export default {
         submit: function(){
             this.btnClass['is-loading'] = true;
 
-            axios.post('/login', this.fields).then(res=>{
-            this.btnClass['is-loading'] = false;
-
+            axios.post('/custom-login', this.fields).then(res=>{
+                this.btnClass['is-loading'] = false;
                 console.log(res.data)
-                window.location = '/dashboard';
+
+                if(res.data.role === 'ADMINISTRATOR'){
+                    window.location = '/admin-home'
+                }
+
+                if(res.data.role === 'LIASON'){
+                    window.location = '/liason-home'
+                }
+
+                if(res.data.role === 'STAFF'){
+                    window.location = '/staff-home'
+                }
+
             }).catch(err=>{
             this.btnClass['is-loading'] = false;
                 this.errors = err.response.data.errors;

@@ -31268,7 +31268,7 @@ button.dropdown-item.is-active {
 .modal-card-head,
 .modal-card-foot {
   align-items: center;
-  background-color: whitesmoke;
+  background-color: #ffffff;
   display: flex;
   flex-shrink: 0;
   justify-content: flex-start;
@@ -31277,9 +31277,9 @@ button.dropdown-item.is-active {
 }
 
 .modal-card-head {
-  border-bottom: 1px solid #dbdbdb;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-bottom: #ffffff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .modal-card-title {
@@ -42305,4 +42305,29 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   .upload .upload-draggable + input[type=file] {
     z-index: -1;
   }
+}
+.box {
+  border-radius: 0 !important;
+}
+
+.box-header {
+  margin: 15px 0;
+}
+
+.box-header-text {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.box-table {
+  border-left: 2px solid orange;
+}
+
+button .button {
+  border-radius: 0px;
+}
+
+input[type=text], input type[type=email],
+input[type=password], input[type=tel] {
+  border-radius: 0;
 }

@@ -41,6 +41,7 @@ html{
 
 
 
+
 //@import '~animate.css/animate';
 //npm install animate.css --save
 
@@ -151,6 +152,13 @@ $navbar-item-img-max-height: 4rem;
 
 
 
+
+$modal-card-head-background-color: #ffffff;
+$modal-card-head-border-bottom: #ffffff;
+
+$modal-card-head-radius: 0;
+
+
 // Import Bulma and Buefy styles
 
 @import "~bulma";
@@ -159,6 +167,40 @@ $navbar-item-img-max-height: 4rem;
 @import "~buefy/src/scss/buefy";
 
 
+
+
+
+
+
+
+
+
+
+.box{
+    border-radius: 0 !important;
+}
+
+.box-header{
+   margin: 15px 0;
+}
+
+.box-header-text{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.box-table{
+    border-left: 2px solid orange;
+}
+
+button .button{
+    border-radius: 0px;
+}
+
+input[type=text], input type[type=email],
+input[type=password], input[type=tel]{
+    border-radius: 0;
+}
 
 
 
