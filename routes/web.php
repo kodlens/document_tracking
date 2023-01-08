@@ -88,9 +88,10 @@ Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::cla
 
 Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
 Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
+Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
 Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
-Route::get('/get-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
+Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
 
 
 /*     ADMINSITRATOR          */

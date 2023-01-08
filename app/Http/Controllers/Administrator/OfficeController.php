@@ -33,6 +33,10 @@ class OfficeController extends Controller
         return $data;
     }
 
+    public function getOfficesForRoutes(){
+        return Office::all();
+    }
+
 
     public function store(Request $req){
         $req->validate([

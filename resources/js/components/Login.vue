@@ -65,7 +65,7 @@ export default {
                 console.log(res.data)
 
                 if(res.data.role === 'ADMINISTRATOR'){
-                    window.location = '/admin-home'
+                    window.location = '/offices'
                 }
 
                 if(res.data.role === 'LIASON'){

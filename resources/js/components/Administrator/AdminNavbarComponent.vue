@@ -20,14 +20,14 @@
                 <b-navbar-item href="/document-routes">
                     Route
                 </b-navbar-item>
-                <b-navbar-dropdown label="Info">
+                <!-- <b-navbar-dropdown label="Info">
                     <b-navbar-item href="#">
                         About
                     </b-navbar-item>
                     <b-navbar-item href="#">
                         Contact
                     </b-navbar-item>
-                </b-navbar-dropdown>
+                </b-navbar-dropdown> -->
             </template>
 
             <template #end>
