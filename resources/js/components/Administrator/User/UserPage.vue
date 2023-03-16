@@ -238,7 +238,22 @@
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            <option value="USER">USER</option>
+                                            <option value="STAFF">STAFF</option>
+                                            <option value="LIASON">LIASON</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns" v-if="fields.role === 'STAFF'">
+                                <div class="column">
+                                    <b-field label="Role" label-position="on-border" expanded
+                                            :type="this.errors.role ? 'is-danger':''"
+                                            :message="this.errors.role ? this.errors.role[0] : ''">
+                                        <b-select v-model="fields.office_id" expanded>
+                                            <option v-for="(item,index) in offices"
+                                                :key="index" 
+                                                :value="item.office_id">{{ item.office }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -289,8 +304,8 @@ export default{
             fields: {
                 username: '',
                 lname: '', fname: '', mname: '', suffix: '',
-                password: '', password_confirmation : '',
-                sex : '', role: '',  email : '', contact_no : '',
+                password: '', password_confirmation : '', office_id: 0,
+                sex : '', role: '', contact_no : '',
             },
             errors: {},
             offices: [],
@@ -367,6 +382,9 @@ export default{
 
 
         submit: function(){
+            this.fields.office_id = this.fields.role === 'STAFF' ? this.fields.office_id : 0;
+            
+
             if(this.global_id > 0){
                 //update
                 axios.put('/users/'+this.global_id, this.fields).then(res=>{
@@ -410,8 +428,6 @@ export default{
                         this.errors = err.response.data.errors;
                     }
                 });
-
-
             }
         },
 
@@ -439,12 +455,17 @@ export default{
         },
 
         clearFields(){
-            this.fields = {
-                    username: '',
-                    lname: '', fname: '', mname: '', suffix: '',
-                    password: '', password_confirmation : '',
-                    sex : '', role: '',  email : '', contact_no : '',
-            };
+            this.fields.username = '';
+            this.fields.lname = '';
+            this.fields.fname = '';
+            this.fields.mname = '';
+            this.fields.suffix = '';
+            this.fields.sex = '';
+            this.fields.password = '';
+            this.fields.password_confirmation = '';
+            this.fields.role = '';
+            this.fields.email = '';
+            this.fields.contact_no = '';
         },
 
 
@@ -454,19 +475,23 @@ export default{
             this.global_id = data_id;
             this.isModalCreate = true;
 
-
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/users/'+data_id).then(res=>{
                 this.fields = res.data;
             });
         },
 
-
+        loadOffices(){
+            axios.get('/get-offices-for-routes').then(res=>{
+                this.offices = res.data;
+            });
+        }
 
     },
 
     mounted() {
         this.loadAsyncData();
+        this.loadOffices()
     }
 }
 </script>

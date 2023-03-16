@@ -23,8 +23,35 @@ class UserSeeder extends Seeder
                 'mname' => '',
                 'suffix' => '',
                 'sex' => 'MALE',
+                'office_id' => 0,
                 'contact_no' => '09655138165',
                 'role' => 'ADMINISTRATOR',
+                'password' => Hash::make('a')
+            ],
+
+            [
+                'username' => 'liason',
+                'lname' => 'SELATONA',
+                'fname' => 'ARNEL',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'office_id' => 0,
+                'contact_no' => '09655138165',
+                'role' => 'LIASON',
+                'password' => Hash::make('a')
+            ],
+
+            [
+                'username' => 'liason',
+                'lname' => 'SELATONA',
+                'fname' => 'ARNEL',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'office_id' => 0,
+                'contact_no' => '09655138165',
+                'role' => 'LIASON',
                 'password' => Hash::make('a')
             ],
 

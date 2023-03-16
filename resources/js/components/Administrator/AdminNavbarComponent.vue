@@ -20,6 +20,9 @@
                 <b-navbar-item href="/document-routes">
                     Route
                 </b-navbar-item>
+                <b-navbar-item href="/users">
+                    User
+                </b-navbar-item>
                 <!-- <b-navbar-dropdown label="Info">
                     <b-navbar-item href="#">
                         About

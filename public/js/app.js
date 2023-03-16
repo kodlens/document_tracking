@@ -7663,6 +7663,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8735,6 +8738,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8759,9 +8777,9 @@ __webpack_require__.r(__webpack_exports__);
         suffix: '',
         password: '',
         password_confirmation: '',
+        office_id: 0,
         sex: '',
         role: '',
-        email: '',
         contact_no: ''
       },
       errors: {},
@@ -8827,6 +8845,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       var _this2 = this;
+
+      this.fields.office_id = this.fields.role === 'STAFF' ? this.fields.office_id : 0;
 
       if (this.global_id > 0) {
         //update
@@ -8906,19 +8926,17 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clearFields: function clearFields() {
-      this.fields = {
-        username: '',
-        lname: '',
-        fname: '',
-        mname: '',
-        suffix: '',
-        password: '',
-        password_confirmation: '',
-        sex: '',
-        role: '',
-        email: '',
-        contact_no: ''
-      };
+      this.fields.username = '';
+      this.fields.lname = '';
+      this.fields.fname = '';
+      this.fields.mname = '';
+      this.fields.suffix = '';
+      this.fields.sex = '';
+      this.fields.password = '';
+      this.fields.password_confirmation = '';
+      this.fields.role = '';
+      this.fields.email = '';
+      this.fields.contact_no = '';
     },
     //update code here
     getData: function getData(data_id) {
@@ -8931,10 +8949,18 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/users/' + data_id).then(function (res) {
         _this5.fields = res.data;
       });
+    },
+    loadOffices: function loadOffices() {
+      var _this6 = this;
+
+      axios.get('/get-offices-for-routes').then(function (res) {
+        _this6.offices = res.data;
+      });
     }
   },
   mounted: function mounted() {
     this.loadAsyncData();
+    this.loadOffices();
   }
 });
 
@@ -31336,6 +31362,10 @@ var render = function () {
                 _c("b-navbar-item", { attrs: { href: "/document-routes" } }, [
                   _vm._v("\n                Route\n            "),
                 ]),
+                _vm._v(" "),
+                _c("b-navbar-item", { attrs: { href: "/users" } }, [
+                  _vm._v("\n                User\n            "),
+                ]),
               ]
             },
             proxy: true,
@@ -33283,8 +33313,12 @@ var render = function () {
                                     [_vm._v("ADMINISTRATOR")]
                                   ),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "USER" } }, [
-                                    _vm._v("USER"),
+                                  _c("option", { attrs: { value: "STAFF" } }, [
+                                    _vm._v("STAFF"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "LIASON" } }, [
+                                    _vm._v("LIASON"),
                                   ]),
                                 ]
                               ),
@@ -33295,6 +33329,59 @@ var render = function () {
                         1
                       ),
                     ]),
+                    _vm._v(" "),
+                    _vm.fields.role === "STAFF"
+                      ? _c("div", { staticClass: "columns" }, [
+                          _c(
+                            "div",
+                            { staticClass: "column" },
+                            [
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "Role",
+                                    "label-position": "on-border",
+                                    expanded: "",
+                                    type: this.errors.role ? "is-danger" : "",
+                                    message: this.errors.role
+                                      ? this.errors.role[0]
+                                      : "",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "b-select",
+                                    {
+                                      attrs: { expanded: "" },
+                                      model: {
+                                        value: _vm.fields.office_id,
+                                        callback: function ($$v) {
+                                          _vm.$set(_vm.fields, "office_id", $$v)
+                                        },
+                                        expression: "fields.office_id",
+                                      },
+                                    },
+                                    _vm._l(_vm.offices, function (item, index) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: index,
+                                          domProps: { value: item.office_id },
+                                        },
+                                        [_vm._v(_vm._s(item.office))]
+                                      )
+                                    }),
+                                    0
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ])
+                      : _vm._e(),
                   ]),
                 ]),
                 _vm._v(" "),
