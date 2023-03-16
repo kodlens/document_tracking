@@ -49,7 +49,7 @@ class RouteDetailSeeder extends Seeder
             
         ];
 
-        \App\Models\RouteDetail::insertOrIgnore($data);
+        \App\Models\DocumentRouteDetail::insertOrIgnore($data);
 
 
     }

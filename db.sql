@@ -53,7 +53,7 @@ CREATE TABLE `document_tracks` (
   CONSTRAINT `document_tracks_ibfk_2` FOREIGN KEY (`route_detail_id`) REFERENCES `route_details` (`route_detail_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `document_tracks_ibfk_3` FOREIGN KEY (`office_id`) REFERENCES `offices` (`office_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `document_tracks_ibfk_4` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `document_tracks` */
 
@@ -61,7 +61,11 @@ insert  into `document_tracks`(`document_track_id`,`document_id`,`route_id`,`rou
 (32,10,1,5,11,1,1,0,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,'2023-01-09 07:08:13',NULL,'2023-01-09 07:07:50','2023-01-09 07:08:13'),
 (33,10,1,1,10,2,0,0,1,1,'2023-01-09 07:08:34',NULL,1,'2023-01-09 07:08:37',NULL,0,NULL,NULL,1,'2023-01-09 07:08:39',NULL,'2023-01-09 07:07:50','2023-01-09 07:08:39'),
 (34,10,1,2,2,3,0,0,1,1,'2023-01-09 07:09:25',NULL,1,'2023-01-09 07:09:30',NULL,0,NULL,NULL,1,'2023-01-09 07:09:33',NULL,'2023-01-09 07:07:50','2023-01-09 07:09:33'),
-(35,10,1,3,4,4,0,1,1,1,'2023-01-09 07:09:47',NULL,1,'2023-01-09 07:09:50',NULL,1,'2023-01-09 07:09:53',NULL,1,'2023-01-09 07:09:53',NULL,'2023-01-09 07:07:50','2023-01-09 07:09:53');
+(35,10,1,3,4,4,0,1,1,1,'2023-01-09 07:09:47',NULL,1,'2023-01-09 07:09:50',NULL,1,'2023-01-09 07:09:53',NULL,1,'2023-01-09 07:09:53',NULL,'2023-01-09 07:07:50','2023-01-09 07:09:53'),
+(36,11,1,5,11,1,1,0,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,'2023-03-16 23:07:09',NULL,'2023-03-16 23:04:50','2023-03-16 23:07:09'),
+(37,11,1,1,10,2,0,0,1,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-03-16 23:04:50','2023-03-16 23:07:09'),
+(38,11,1,2,2,3,0,0,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-03-16 23:04:50','2023-03-16 23:04:50'),
+(39,11,1,3,4,4,0,1,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-03-16 23:04:50','2023-03-16 23:04:50');
 
 /*Table structure for table `documents` */
 
@@ -79,12 +83,13 @@ CREATE TABLE `documents` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`document_id`),
   KEY `office_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `documents` */
 
 insert  into `documents`(`document_id`,`user_id`,`tracking_no`,`document_name`,`route_id`,`is_done`,`datetime_done`,`created_at`,`updated_at`) values 
-(10,5,'347D347F4C4FEE8','faculty salary for january 2023',0,0,NULL,'2023-01-09 07:07:50','2023-01-09 07:07:50');
+(10,5,'347D347F4C4FEE8','faculty salary for january 2023',0,0,NULL,'2023-01-09 07:07:50','2023-01-09 07:07:50'),
+(11,5,'F43E3538748D234','Payrol for 2023 month of january',0,0,NULL,'2023-03-16 23:04:50','2023-03-16 23:04:50');
 
 /*Table structure for table `failed_jobs` */
 
@@ -256,7 +261,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
@@ -266,7 +271,8 @@ insert  into `users`(`user_id`,`username`,`lname`,`fname`,`mname`,`suffix`,`sex`
 (3,'acct','PADAL','HARRIET CLAIRE',NULL,NULL,'FEMALE','2',NULL,'STAFF',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL),
 (4,'treas','ABADIA','JONETHER',NULL,NULL,'MALE','4',NULL,'STAFF',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL),
 (5,'liason','SELATONA','ARNEL',NULL,NULL,'MALE',NULL,NULL,'LIASON',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL),
-(6,'officeb','SELATONA','ARNEL',NULL,NULL,NULL,'7',NULL,'STAFF',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL);
+(6,'officeb','SELATONA','ARNEL',NULL,NULL,NULL,'7',NULL,'STAFF',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL),
+(7,'officeb1','SELATONA','ARNEL',NULL,NULL,NULL,'13',NULL,'STAFF',NULL,'$2y$10$hS4j5DZEnJwqpFuvdpmj2./mRbBwvy1DTQyLpgqk5IAtWXSiF7ZLS',NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -31,7 +31,7 @@ class RouteSeeder extends Seeder
             
         ];
 
-        \App\Models\Route::insertOrIgnore($data);
+        \App\Models\DocumentRoute::insertOrIgnore($data);
 
     }
 }

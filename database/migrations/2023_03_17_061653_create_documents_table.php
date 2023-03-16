@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRouteDetailsTable extends Migration
+class CreateDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,23 @@ class CreateRouteDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('route_details', function (Blueprint $table) {
-            $table->id('route_detail_id');
+        Schema::create('documents', function (Blueprint $table) {
+            $table->id('document_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('order_no')->default(0);
+            $table->string('tacking_no')->nullable();
+            $table->string('document_name')->nullable();
+
 
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('route_id')->on('routes')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->unsignedBigInteger('office_id');
-            $table->foreign('office_id')->references('office_id')->on('offices')
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->tinyInteger('is_done');
 
-            $table->tinyInteger('is_origin')->default(0);
-            $table->tinyInteger('is_last')->default(0);
+            $table->dateTime('datetime_done');
 
             $table->timestamps();
         });
@@ -40,6 +42,6 @@ class CreateRouteDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('route_details');
+        Schema::dropIfExists('documents');
     }
 }
