@@ -74,9 +74,7 @@ class UserController extends Controller
             'username' => ['required', 'max:50', 'unique:users,username,'.$id.',user_id'],
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
-
             'sex' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'unique:users,email,'.$id.',user_id'],
             'role' => ['required', 'string'],
 
         ]);
@@ -88,7 +86,6 @@ class UserController extends Controller
         $data->mname = strtoupper($req->mname);
         $data->suffix = strtoupper($req->suffix);
         $data->sex = $req->sex;
-        $data->email = $req->email;
         $data->role = $req->role;
 
         $data->save();
