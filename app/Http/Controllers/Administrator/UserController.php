@@ -46,7 +46,6 @@ class UserController extends Controller
             'fname' => ['required', 'string', 'max:100'],
 
             'sex' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
             'role' => ['required', 'string'],
         ]);
@@ -60,7 +59,6 @@ class UserController extends Controller
             'mname' => strtoupper($req->mname),
             'sex' => $req->sex,
             'suffix' => strtoupper($req->suffix),
-            'email' => $req->email,
             'contact_no' => $req->contact_no,
             'role' => $req->role,
 

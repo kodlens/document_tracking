@@ -8742,17 +8742,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8935,7 +8924,6 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.password = '';
       this.fields.password_confirmation = '';
       this.fields.role = '';
-      this.fields.email = '';
       this.fields.contact_no = '';
     },
     //update code here
@@ -32692,24 +32680,6 @@ var render = function () {
                     }),
                     _vm._v(" "),
                     _c("b-table-column", {
-                      attrs: { field: "email", label: "Email" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(props.row.email) +
-                                  "\n                        "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
                       attrs: { field: "role", label: "Role" },
                       scopedSlots: _vm._u([
                         {
@@ -33069,44 +33039,6 @@ var render = function () {
                             "b-field",
                             {
                               attrs: {
-                                label: "Email",
-                                "label-position": "on-border",
-                                type: this.errors.email ? "is-danger" : "",
-                                message: this.errors.email
-                                  ? this.errors.email[0]
-                                  : "",
-                              },
-                            },
-                            [
-                              _c("b-input", {
-                                attrs: {
-                                  type: "email",
-                                  placeholder: "Email",
-                                  required: "",
-                                },
-                                model: {
-                                  value: _vm.fields.email,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.fields, "email", $$v)
-                                  },
-                                  expression: "fields.email",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "column" },
-                        [
-                          _c(
-                            "b-field",
-                            {
-                              attrs: {
                                 label: "Contact No",
                                 "label-position": "on-border",
                                 type: this.errors.contact_no ? "is-danger" : "",
@@ -33340,7 +33272,7 @@ var render = function () {
                                 "b-field",
                                 {
                                   attrs: {
-                                    label: "Role",
+                                    label: "Office",
                                     "label-position": "on-border",
                                     expanded: "",
                                     type: this.errors.role ? "is-danger" : "",

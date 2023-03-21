@@ -72,9 +72,7 @@
                                 {{ props.row.sex }}
                             </b-table-column>
 
-                            <b-table-column field="email" label="Email" v-slot="props">
-                                {{ props.row.email }}
-                            </b-table-column>
+                        
 
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
@@ -179,15 +177,6 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Email" label-position="on-border"
-                                             :type="this.errors.email ? 'is-danger':''"
-                                             :message="this.errors.email ? this.errors.email[0] : ''">
-                                        <b-input type="email" v-model="fields.email"
-                                                 placeholder="Email" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
                                     <b-field label="Contact No" label-position="on-border"
                                              :type="this.errors.contact_no ? 'is-danger':''"
                                              :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
@@ -247,7 +236,7 @@
 
                             <div class="columns" v-if="fields.role === 'STAFF'">
                                 <div class="column">
-                                    <b-field label="Role" label-position="on-border" expanded
+                                    <b-field label="Office" label-position="on-border" expanded
                                             :type="this.errors.role ? 'is-danger':''"
                                             :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.office_id" expanded>
@@ -464,7 +453,7 @@ export default{
             this.fields.password = '';
             this.fields.password_confirmation = '';
             this.fields.role = '';
-            this.fields.email = '';
+         
             this.fields.contact_no = '';
         },
 
