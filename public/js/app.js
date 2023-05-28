@@ -7796,6 +7796,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7970,6 +8003,34 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/document-routes/' + data_id).then(function (res) {
         _this5.fields = res.data;
+      });
+    },
+    //Route Detail
+    //alert box ask for deletion
+    confirmDeleteRouteDetail: function confirmDeleteRouteDetail(delete_id) {
+      var _this6 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to delete office?',
+        cancelText: 'Cancel',
+        confirmText: 'Delete',
+        onConfirm: function onConfirm() {
+          return _this6.deleteRouteDetail(delete_id);
+        }
+      });
+    },
+    //execute delete after confirming
+    deleteRouteDetail: function deleteRouteDetail(delete_id) {
+      var _this7 = this;
+
+      axios["delete"]('/document-route-details/' + delete_id).then(function (res) {
+        _this7.loadAsyncData();
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this7.errors = err.response.data.errors;
+        }
       });
     }
   },
@@ -31579,6 +31640,7 @@ var render = function () {
                     paginated: "",
                     "backend-pagination": "",
                     total: _vm.total,
+                    detailed: "",
                     "per-page": _vm.perPage,
                     "aria-next-label": "Next page",
                     "aria-previous-label": "Previous page",
@@ -31588,6 +31650,129 @@ var render = function () {
                     "default-sort-direction": _vm.defaultSortDirection,
                   },
                   on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "detail",
+                      fn: function (props) {
+                        return [
+                          props.row.route_details
+                            ? _c(
+                                "div",
+                                [
+                                  _c("tr", [
+                                    _c("th", [_vm._v("Order No")]),
+                                    _vm._v(" "),
+                                    _c("th", [_vm._v("Office")]),
+                                    _vm._v(" "),
+                                    _c("th", [_vm._v("Origin/Last")]),
+                                    _vm._v(" "),
+                                    _c("th", [_vm._v("ACtion")]),
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(
+                                    props.row.route_details,
+                                    function (i, ix) {
+                                      return _c("tr", { key: ix }, [
+                                        _c(
+                                          "td",
+                                          {
+                                            staticStyle: {
+                                              "text-align": "center",
+                                            },
+                                          },
+                                          [_vm._v(_vm._s(i.order_no))]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(i.office))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          i.is_origin == 1
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  "\n                                            ORIGIN\n                                        "
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          i.is_last == 1
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  "\n                                            END\n                                        "
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          [
+                                            _c(
+                                              "b-tooltip",
+                                              {
+                                                attrs: {
+                                                  label: "Edit",
+                                                  type: "is-info",
+                                                },
+                                              },
+                                              [
+                                                _c("b-button", {
+                                                  staticClass:
+                                                    "button is-small is-warning mr-1",
+                                                  attrs: {
+                                                    "icon-right": "pencil",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.confirmDeleteRouteDetail(
+                                                        i.route_detail_id
+                                                      )
+                                                    },
+                                                  },
+                                                }),
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-tooltip",
+                                              {
+                                                attrs: {
+                                                  label: "Delete",
+                                                  type: "is-danger",
+                                                },
+                                              },
+                                              [
+                                                _c("b-button", {
+                                                  staticClass:
+                                                    "button is-small is-danger mr-1",
+                                                  attrs: {
+                                                    "icon-right": "delete",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.editROuteDetail(
+                                                        i.route_detail_id
+                                                      )
+                                                    },
+                                                  },
+                                                }),
+                                              ],
+                                              1
+                                            ),
+                                          ],
+                                          1
+                                        ),
+                                      ])
+                                    }
+                                  ),
+                                ],
+                                2
+                              )
+                            : _vm._e(),
+                        ]
+                      },
+                    },
+                  ]),
                 },
                 [
                   _c("b-table-column", {
@@ -33275,9 +33460,11 @@ var render = function () {
                                     label: "Office",
                                     "label-position": "on-border",
                                     expanded: "",
-                                    type: this.errors.role ? "is-danger" : "",
-                                    message: this.errors.role
-                                      ? this.errors.role[0]
+                                    type: this.errors.office_id
+                                      ? "is-danger"
+                                      : "",
+                                    message: this.errors.office_id
+                                      ? this.errors.office_id[0]
                                       : "",
                                   },
                                 },

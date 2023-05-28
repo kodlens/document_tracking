@@ -90,8 +90,15 @@ Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController:
 Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
 Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
-Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
-Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
+
+Route::middleware(['auth', 'admin'])->group(function() {
+
+    Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
+    Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
+
+    Route::resource('/document-route-details', App\Http\Controllers\Administrator\DocumentRouteDetailController::class);
+
+});
 
 
 /*     ADMINSITRATOR          */

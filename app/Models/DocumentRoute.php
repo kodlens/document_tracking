@@ -19,7 +19,9 @@ class DocumentRoute extends Model
     ];
 
     public function route_details(){
-        return $this->hasMany(DocumentRouteDetail::class, 'route_id', 'route_id');
+        return $this->hasMany(DocumentRouteDetail::class, 'route_id', 'route_id')
+            ->leftJoin('offices','route_details.office_id', 'offices.office_id')
+            ->orderBy('route_details.order_no', 'asc');
     }
 
 

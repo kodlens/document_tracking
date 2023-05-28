@@ -237,8 +237,8 @@
                             <div class="columns" v-if="fields.role === 'STAFF'">
                                 <div class="column">
                                     <b-field label="Office" label-position="on-border" expanded
-                                            :type="this.errors.role ? 'is-danger':''"
-                                            :message="this.errors.role ? this.errors.role[0] : ''">
+                                            :type="this.errors.office_id ? 'is-danger':''"
+                                            :message="this.errors.office_id ? this.errors.office_id[0] : ''">
                                         <b-select v-model="fields.office_id" expanded>
                                             <option v-for="(item,index) in offices"
                                                 :key="index" 

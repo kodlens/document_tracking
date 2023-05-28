@@ -13,10 +13,6 @@ class DocumentRouteController extends Controller
 {
     //
 
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
     public function index(){
         return view('administrator.document-route');
     }
@@ -24,7 +20,8 @@ class DocumentRouteController extends Controller
     public function getDocumentRoutes(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = DocumentRoute::where('route_name', 'like', $req->route . '%')
+        $data = DocumentRoute::with(['route_details'])
+            ->where('route_name', 'like', $req->route . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

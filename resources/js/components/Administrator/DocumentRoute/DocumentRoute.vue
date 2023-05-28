@@ -46,6 +46,7 @@
                             paginated
                             backend-pagination
                             :total="total"
+                            detailed
                             :per-page="perPage"
                             @page-change="onPageChange"
                             aria-next-label="Next page"
@@ -79,6 +80,38 @@
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
+
+                            <template #detail="props">
+                                <div v-if="props.row.route_details">
+                                    <tr>
+                                        <th>Order No</th>
+                                        <th>Office</th>
+                                        <th>Origin/Last</th>
+                                        <th>ACtion</th>
+                                    </tr>
+                                    <tr v-for="(i,ix) in props.row.route_details" :key="ix">
+                                        <td style="text-align: center;">{{ i.order_no }}</td>
+                                        <td>{{ i.office }}</td>
+                                        <td>
+                                            <span v-if="i.is_origin == 1">
+                                                ORIGIN
+                                            </span>
+                                            <span v-if="i.is_last == 1">
+                                                END
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <b-tooltip label="Edit" type="is-info">
+                                                <b-button class="button is-small is-warning mr-1" icon-right="pencil" @click="confirmDeleteRouteDetail(i.route_detail_id)"></b-button>
+                                            </b-tooltip>
+                                            <b-tooltip label="Delete" type="is-danger">
+                                                <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="editROuteDetail(i.route_detail_id)"></b-button>
+                                            </b-tooltip>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </template>
+                            
                         </b-table>
 
                         <div class="float-button">
@@ -287,6 +320,33 @@ export default{
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/document-routes/'+data_id).then(res=>{
                 this.fields = res.data;
+            });
+        },
+
+
+
+
+
+        //Route Detail
+        //alert box ask for deletion
+        confirmDeleteRouteDetail(delete_id) {
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to delete office?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete',
+                onConfirm: () => this.deleteRouteDetail(delete_id)
+            });
+        },
+        //execute delete after confirming
+        deleteRouteDetail(delete_id) {
+            axios.delete('/document-route-details/' + delete_id).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
             });
         },
 
