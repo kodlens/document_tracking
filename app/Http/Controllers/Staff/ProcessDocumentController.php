@@ -23,6 +23,10 @@ class ProcessDocumentController extends Controller
                 'is_process' => 1,
                 'datetime_process' => date('Y-m-d H:i:s')
             ]);
-            
+
+        
+        return response()->json([
+            'status' => 'processed'
+        ], 200);
     }
 }

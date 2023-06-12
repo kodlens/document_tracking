@@ -43,6 +43,9 @@ class ForwardDocumentController extends Controller
                 ]);
         }
         
+        return response()->json([
+            'status' => 'forwarded'
+        ], 200);
 
     }
 }

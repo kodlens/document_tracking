@@ -10663,9 +10663,18 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Yes',
         onConfirm: function onConfirm() {
-          axios.post('/document-receive/' + row.document_track_id);
+          axios.post('/document-receive/' + row.document_track_id).then(function (res) {
+            if (res.data.status === 'done') {
+              _this7.$buefy.toast.open({
+                duration: 5000,
+                message: "<b>Done.</b>",
+                position: 'is-top',
+                type: 'is-success'
+              });
 
-          _this7.loadAsyncData();
+              _this7.loadAsyncData();
+            }
+          });
         }
       });
     },
@@ -10679,9 +10688,18 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Yes',
         onConfirm: function onConfirm() {
-          axios.post('/document-process/' + row.document_track_id);
+          axios.post('/document-process/' + row.document_track_id).then(function (res) {
+            if (res.data.status === 'done') {
+              _this8.$buefy.toast.open({
+                duration: 5000,
+                message: "<b>Done.</b>",
+                position: 'is-top',
+                type: 'is-success'
+              });
 
-          _this8.loadAsyncData();
+              _this8.loadAsyncData();
+            }
+          });
         }
       });
     },
@@ -10696,6 +10714,13 @@ __webpack_require__.r(__webpack_exports__);
         confirmText: 'Forward',
         onConfirm: function onConfirm() {
           axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
+            _this9.$buefy.toast.open({
+              duration: 5000,
+              message: "<b>Done.</b>",
+              position: 'is-top',
+              type: 'is-success'
+            });
+
             _this9.loadAsyncData();
           });
         }
@@ -34273,7 +34298,13 @@ var render = function () {
                                           " | \n                                                    "
                                         ),
                                         _c("span", [
-                                          _vm._v(_vm._s(item.datetime_process)),
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDateTime")(
+                                                item.datetime_process
+                                              )
+                                            )
+                                          ),
                                         ]),
                                       ])
                                     : _vm._e(),

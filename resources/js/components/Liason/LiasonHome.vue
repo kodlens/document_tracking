@@ -40,7 +40,7 @@
                                                     Process: 
                                                     <span v-if="item.is_process == 1">
                                                         <span class="yes">Yes</span> | 
-                                                        <span>{{ item.datetime_process }}</span>
+                                                        <span>{{ item.datetime_process | formatDateTime}}</span>
                                                     </span>
                                                 </div>
                                                 

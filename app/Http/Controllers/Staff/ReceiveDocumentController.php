@@ -22,7 +22,10 @@ class ReceiveDocumentController extends Controller
                 'is_received' => 1,
                 'datetime_received' => date('Y-m-d H:i:s')
             ]);
-            
+        
+        return response()->json([
+            'status' => 'done'
+        ], 200);
     }
 
 }

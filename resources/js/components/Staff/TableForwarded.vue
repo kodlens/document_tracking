@@ -407,8 +407,17 @@ export default{
                 cancelText: 'Cancel',
                 confirmText: 'Yes',
                 onConfirm: () => {
-                    axios.post('/document-receive/' + row.document_track_id)
-                    this.loadAsyncData()
+                    axios.post('/document-receive/' + row.document_track_id).then(res=>{
+                        if(res.data.status === 'done'){
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: `<b>Done.</b>`,
+                                position: 'is-top',
+                                type: 'is-success'
+                            })
+                        this.loadAsyncData()
+                        }
+                    })
                 }
             });
         },
@@ -420,8 +429,18 @@ export default{
                 cancelText: 'Cancel',
                 confirmText: 'Yes',
                 onConfirm: () => {
-                    axios.post('/document-process/' + row.document_track_id)
-                    this.loadAsyncData()
+                    axios.post('/document-process/' + row.document_track_id).then(res=>{
+                        if(res.data.status === 'done'){
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: `<b>Done.</b>`,
+                                position: 'is-top',
+                                type: 'is-success'
+                            })
+                            this.loadAsyncData()
+                        }
+                    })
+                    
                 }
             });
         },
@@ -435,6 +454,12 @@ export default{
                 confirmText: 'Forward',
                 onConfirm: () => {
                     axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
+                        this.$buefy.toast.open({
+                            duration: 5000,
+                            message: `<b>Done.</b>`,
+                            position: 'is-top',
+                            type: 'is-success'
+                        })
                         this.loadAsyncData()
                     })
                 }
