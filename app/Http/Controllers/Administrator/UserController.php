@@ -25,7 +25,8 @@ class UserController extends Controller
     public function getUsers(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $users = User::where('lname', 'like', $req->lname . '%')
+        $users = User::with(['office'])
+            ->where('lname', 'like', $req->lname . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -44,10 +45,13 @@ class UserController extends Controller
             'username' => ['required', 'max:50', 'unique:users'],
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
-
             'sex' => ['required', 'string', 'max:20'],
             'password' => ['required', 'string', 'confirmed'],
             'role' => ['required', 'string'],
+            'office_id' => ['required_if:role,STAFF',],
+            
+        ],[
+            'office_id.required_if' => 'The office field is required when role is STAFF.'
         ]);
 
         User::create([
@@ -60,6 +64,7 @@ class UserController extends Controller
             'sex' => $req->sex,
             'suffix' => strtoupper($req->suffix),
             'contact_no' => $req->contact_no,
+            'office_id' => $req->office_id ? $req->office_id : 0,
             'role' => $req->role,
 
         ]);
@@ -76,7 +81,9 @@ class UserController extends Controller
             'fname' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string', 'max:20'],
             'role' => ['required', 'string'],
-
+            'office_id' => ['required_if:role,STAFF',]
+        ],[
+            'office_id.required_if' => 'The office field is required when role is STAFF.'
         ]);
 
         $data = User::find($id);

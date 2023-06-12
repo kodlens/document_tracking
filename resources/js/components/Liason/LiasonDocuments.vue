@@ -67,6 +67,10 @@
                             <b-table-column field="document_name" label="Document Name" v-slot="props">
                                 {{ props.row.document_name }}
                             </b-table-column>
+
+                            <b-table-column field="route" label="Route" v-slot="props">
+                                {{ props.row.route.route_name }}
+                            </b-table-column>
                          
 
                             <b-table-column label="Action" v-slot="props">
@@ -164,6 +168,8 @@
 </template>
 
 <script>
+import { toSJIS } from '@chenfengyuan/vue-qrcode'
+
 
 export default{
     data() {
@@ -367,7 +373,16 @@ export default{
                 cancelText: 'Cancel',
                 confirmText: 'Forward',
                 onConfirm: () => {
-                    axios.post('/document-forward/' + docId)
+                    axios.post('/document-forward/' + docId).then(res=>{
+                        if(res.data.status === 'forwarded'){
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: `Document successfully <b>forwarded</b>.`,
+                                position: 'is-top',
+                                type: 'is-success'
+                            })
+                        }
+                    })
 
                     this.loadAsyncData()
                 }

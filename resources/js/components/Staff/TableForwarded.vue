@@ -89,8 +89,8 @@
                         </template>
 
 
-                        <b-dropdown-item aria-role="listitem" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="processDocument(props.row)">Process</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="processDocument(props.row)">Process</b-dropdown-item>
                         <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">Forward</b-dropdown-item>
                     </b-dropdown>
                 </div>
@@ -434,8 +434,9 @@ export default{
                 cancelText: 'Cancel',
                 confirmText: 'Forward',
                 onConfirm: () => {
-                    axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id)
-                    this.loadAsyncData()
+                    axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
+                        this.loadAsyncData()
+                    })
                 }
             });
         }

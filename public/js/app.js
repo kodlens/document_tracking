@@ -8803,6 +8803,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8812,7 +8815,7 @@ __webpack_require__.r(__webpack_exports__);
       sortField: 'user_id',
       sortOrder: 'desc',
       page: 1,
-      perPage: 5,
+      perPage: 20,
       defaultSortDirection: 'asc',
       global_id: 0,
       search: {
@@ -9026,6 +9029,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chenfengyuan/vue-qrcode */ "./node_modules/@chenfengyuan/vue-qrcode/dist/vue-qrcode.js");
+/* harmony import */ var _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -9191,6 +9196,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9383,7 +9393,16 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Forward',
         onConfirm: function onConfirm() {
-          axios.post('/document-forward/' + docId);
+          axios.post('/document-forward/' + docId).then(function (res) {
+            if (res.data.status === 'forwarded') {
+              _this7.$buefy.toast.open({
+                duration: 5000,
+                message: "Document successfully <b>forwarded</b>.",
+                position: 'is-top',
+                type: 'is-success'
+              });
+            }
+          });
 
           _this7.loadAsyncData();
         }
@@ -10676,9 +10695,9 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Forward',
         onConfirm: function onConfirm() {
-          axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id);
-
-          _this9.loadAsyncData();
+          axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
+            _this9.loadAsyncData();
+          });
         }
       });
     }
@@ -32883,6 +32902,24 @@ var render = function () {
                     }),
                     _vm._v(" "),
                     _c("b-table-column", {
+                      attrs: { field: "office", label: "Office" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              props.row.office
+                                ? _c("span", [
+                                    _vm._v(_vm._s(props.row.office.office)),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
                       attrs: { label: "Action" },
                       scopedSlots: _vm._u([
                         {
@@ -33824,6 +33861,24 @@ var render = function () {
                               _vm._v(
                                 "\n                            " +
                                   _vm._s(props.row.document_name) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "route", label: "Route" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.route.route_name) +
                                   "\n                        "
                               ),
                             ]
@@ -35972,31 +36027,35 @@ var render = function () {
                           },
                           [
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.receivedDocument(props.row)
+                            props.row.is_origin === 0
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.receivedDocument(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_vm._v("Receive")]
-                            ),
+                                  [_vm._v("Receive")]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.processDocument(props.row)
+                            props.row.is_origin === 0
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.processDocument(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_vm._v("Process")]
-                            ),
+                                  [_vm._v("Process")]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c(
                               "b-dropdown-item",

@@ -22,7 +22,8 @@ class ForwardDocumentController extends Controller
                 'is_forwarded' => 1,
                 'datetime_forwarded' => date('Y-m-d H:i:s')
             ]);
-
+        
+            //get the next track/office
         $nextData = DocumentTrack::where('document_id', $docId)
             ->where('is_forwarded', 0)
             ->orderBy('order_no', 'asc')

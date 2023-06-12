@@ -26,7 +26,6 @@ class LiasonDocumentController extends Controller
     }
 
     public function getDocumentRoutes(){
-
         return DocumentRoute::with('route_details')
             ->get();
     }
@@ -35,7 +34,9 @@ class LiasonDocumentController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $user = Auth::user();
-        $data = Document::where('user_id', $user->user_id)
+
+        $data = Document::with(['route', 'document_tracks'])
+            ->where('user_id', $user->user_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -44,6 +45,7 @@ class LiasonDocumentController extends Controller
 
 
     public function store(Request $req){
+        //return $req;
 
         $req->validate([
             'document_name' => ['required', 'unique:documents'],
@@ -58,7 +60,6 @@ class LiasonDocumentController extends Controller
         $routeDetails = DocumentRouteDetail::where('route_id', $req->route_id)
             ->orderBy('order_no', 'asc')
             ->get();
-
 
         $data = Document::create([
             'user_id' => $user->user_id,
@@ -88,6 +89,13 @@ class LiasonDocumentController extends Controller
 
     public function forwardDoc($id){
 
+        //get the next step
+        $nextData = DocumentTrack::where('document_id', $id)
+            ->where('is_forwarded', 0)
+            ->orderBy('order_no', 'asc')
+            ->limit(1)
+            ->first();
+
         DocumentTrack::where('document_id', $id)
             ->where('is_origin', 1)
             ->update([
@@ -95,20 +103,11 @@ class LiasonDocumentController extends Controller
                 'datetime_forwarded' => date('Y-m-d H:i:s')
             ]);
 
-            //get the next step
-            $nextData = DocumentTrack::where('document_id', $id)
-                ->where('is_forwarded', 0)
-                ->orderBy('order_no', 'asc')
-                ->limit(1)
-                ->first();
-
         DocumentTrack::where('document_track_id', $nextData->document_track_id)
             ->update([
                 'is_forward_from' => 1, 
             ]);   
-
-            
-            
+ 
         return response()->json([
             'status' => 'forwarded'
         ], 200);

@@ -17,12 +17,18 @@ class Document extends Model
         'tracking_no',
         'document_name',
         'is_done',
+        'route_id',
         'datetime_done'
     ];
 
     public function document_tracks(){
         return $this->hasMany(DocumentTrack::class, 'document_id', 'document_id')
             ->with(['office']);
+    }
+
+
+    public function route(){
+        return $this->hasOne(DocumentRoute::class, 'route_id', 'route_id');
     }
 
 }

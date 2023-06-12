@@ -72,10 +72,13 @@
                                 {{ props.row.sex }}
                             </b-table-column>
 
-                        
-
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
+                            </b-table-column>
+
+                            <b-table-column field="office" label="Office" v-slot="props">
+                                <span v-if="props.row.office">{{ props.row.office.office }}</span>
+                                
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
@@ -278,7 +281,7 @@ export default{
             sortField: 'user_id',
             sortOrder: 'desc',
             page: 1,
-            perPage: 5,
+            perPage: 20,
             defaultSortDirection: 'asc',
 
 
