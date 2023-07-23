@@ -20,6 +20,10 @@
                     Home
                 </b-navbar-item>
 
+                <b-navbar-item href="/staff-documents">
+                    Documents
+                </b-navbar-item>
+
                 <b-navbar-item href="#">
                     {{ firstName }}
                 </b-navbar-item>

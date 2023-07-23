@@ -1,17 +1,10 @@
 <template>
     <div>
         <div class="section">
+
             <div class="columns is-centered">
-                <div class="column is-10-desktop">
-                    <div class="box box-table">
-                        <div class="box-header">
-
-                        </div>
-                        <div class="box-body">
-
-                            <table-forwarded></table-forwarded>
-                        </div>
-                    </div>
+                <div class="column is-6-desktop">
+                    <tracking-component></tracking-component>
                 </div>
             </div>
         </div>

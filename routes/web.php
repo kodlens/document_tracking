@@ -68,6 +68,8 @@ Route::post('/document-forward/{docId}', [App\Http\Controllers\Liason\LiasonDocu
 //STAFF
 Route::resource('/staff-home', App\Http\Controllers\Staff\StaffHomeController::class);
 
+Route::resource('/staff-documents', App\Http\Controllers\Staff\StaffDocumentController::class);
+
 
 Route::get('/get-forwarded-documents', [App\Http\Controllers\Staff\ForwardedDocumentController::class, 'getForwardedDocument']);
 
