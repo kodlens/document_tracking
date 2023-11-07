@@ -87,7 +87,7 @@
                                         <th>Order No</th>
                                         <th>Office</th>
                                         <th>Origin/Last</th>
-                                        <th>ACtion</th>
+                                        <th>Action</th>
                                     </tr>
                                     <tr v-for="(i,ix) in props.row.route_details" :key="ix">
                                         <td style="text-align: center;">{{ i.order_no }}</td>
