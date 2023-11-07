@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-6-desktop is-8-tablet">
+                <div class="column is-8-desktop is-10-tablet">
                     <div class="box box-table">
 
                         <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF DOCUMENT ROUTES</div>
@@ -102,10 +102,10 @@
                                         </td>
                                         <td>
                                             <b-tooltip label="Edit" type="is-info">
-                                                <b-button class="button is-small is-warning mr-1" icon-right="pencil" @click="confirmDeleteRouteDetail(i.route_detail_id)"></b-button>
+                                                <b-button class="button is-small is-warning mr-1" icon-right="pencil" @click="editRouteDetail(i.route_detail_id)"></b-button>
                                             </b-tooltip>
                                             <b-tooltip label="Delete" type="is-danger">
-                                                <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="editROuteDetail(i.route_detail_id)"></b-button>
+                                                <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDeleteRouteDetail(i.route_detail_id)"></b-button>
                                             </b-tooltip>
                                         </td>
                                     </tr>
@@ -128,6 +128,96 @@
         </div><!--section div-->
 
 
+
+
+
+
+
+
+        <!--modal create-->
+        <b-modal v-model="modalRouteDetail" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="submit">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Office Information</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalRouteDetail = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Order No."
+                                        :type="errors.order_no ? 'is-danger':''"
+                                        :message="errors.order_no ? errors.order_no[0] : ''">
+                                        <b-input type="text" v-model="fields.order_no" placeholder="Order No.">
+                                        </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Select Office"
+                                        expanded
+                                        :type="errors.office ? 'is-danger':''"
+                                        :message="errors.office ? errors.office[0] : ''">
+                                        <b-select v-model="fields.office_id" expanded>
+                                            <option v-for="(item, index) in offices"
+                                                :key="index" :value="item.office_id">{{ item.office }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field>
+                                        <b-checkbox v-model="fields.is_origin"
+                                            true-value="1"
+                                            false-value="0">
+                                                Origin
+                                        </b-checkbox>
+
+                                        <b-checkbox v-model="fields.is_last"
+                                            true-value="1"
+                                            false-value="0"
+                                        >
+                                            Last
+                                        </b-checkbox>
+
+                                    </b-field>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        
+                        <b-button
+                            :class="btnClass"
+                            label="Save"
+                            @click="updateRouteDetail"
+                            type="is-success"></b-button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
+
+
     </div>
 </template>
 
@@ -147,6 +237,10 @@ export default{
 
             global_id : 0,
 
+            modalRouteDetail: false,
+            offices: [],
+
+
             search: {
                 route: '',
             },
@@ -154,7 +248,10 @@ export default{
             isModalCreate: false,
 
             fields: {
-                office: ''
+                order_no: null,
+                office: '',
+                is_origin: null,
+                is_last: null
             },
 
             errors: {},
@@ -304,9 +401,10 @@ export default{
         },
 
         clearFields(){
-            this.fields = {
-                office: '',
-            };
+            this.fields.office = null
+            this.fields.order_no = null
+            this.fields.is_origin = null
+            this.fields.is_last = null
         },
 
 
@@ -352,10 +450,50 @@ export default{
 
 
 
+        editRouteDetail(routeDetailId){
+            this.modalRouteDetail = true
+            this.global_id = routeDetailId
+
+            axios.get('/document-route-details/' + routeDetailId).then(res=>{
+                this.fields = res.data
+            }).catch(err=>{
+            
+            })
+        },
+        updateRouteDetail(){
+            axios.put('/document-route-details/' + this.global_id, this.fields).then(res=>{
+                if(res.data.status === 'updated'){
+                    this.$buefy.dialog.alert({
+                        title: 'UPDATED!',
+                        message: 'Successfully saved.',
+                        type: 'is-success',
+                        confirmText: 'OK',
+                        onConfirm: () => {
+                           this.loadAsyncData()
+                           this.clearFields()
+                           this.modalRouteDetail = false
+                           this.global_id = 0
+                        }
+                    })
+                }
+            }).catch(err=>{
+            
+            })
+        },
+        loadOffices(){
+            axios.get('/get-offices-for-routes').then(res=>{
+                this.offices = res.data
+            })
+        },
+
+
+
+
     },
 
     mounted() {
         this.loadAsyncData();
+        this.loadOffices();
     }
 }
 </script>

@@ -13,6 +13,10 @@ class DocumentRouteDetailController extends Controller
 
 
 
+    public function show($id){
+        return DocumentRouteDetail::find($id);
+    }
+
     public function update(Request $req, $id){
         $req->validate([
             'order_no' => ['required', 'numeric'],
