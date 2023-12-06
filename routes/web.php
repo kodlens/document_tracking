@@ -86,6 +86,7 @@ Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeContr
 
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
 Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
