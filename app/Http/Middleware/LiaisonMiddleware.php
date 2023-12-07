@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class AdminMiddleware
+
+class LiaisonMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +17,9 @@ class AdminMiddleware
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    {   
+    {
         $role = Auth::user()->role;
-        if($role === 'ADMINISTRATOR'){
+        if($role === 'USER'){
 
             $response = $next($request);
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -27,7 +28,5 @@ class AdminMiddleware
 
             return $response;
         }
-
-        abort(403);
     }
 }

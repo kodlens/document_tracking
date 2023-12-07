@@ -19,7 +19,13 @@ class UserMiddleware
     {
         $role = Auth::user()->role;
         if($role === 'USER'){
-            return $next($request);
+
+            $response = $next($request);
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            return $response;
         }
 
         abort(403);

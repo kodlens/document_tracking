@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 //use App\Providers\RouteServiceProvider;
-//use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +23,7 @@ class LoginController extends Controller
     |
     */
 
-    //use AuthenticatesUsers;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -49,37 +49,41 @@ class LoginController extends Controller
     // }
     
 
-    public function login(Request $request)
-    {
+    // public function login(Request $request)
+    // {
       
 
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
+    //     $credentials = $request->validate([
+    //         'username' => ['required'],
+    //         'password' => ['required'],
+    //     ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            return $user;
-            // return redirect()->intended('dashboard');
-        }
+    //     if (Auth::attempt($credentials)) {
+    //         $request->session()->regenerate();
+    //         $user = Auth::user();
+    //         return $user;
+    //         // return redirect()->intended('dashboard');
+    //     }
 
-        return response()->json([
-            'errors' => [
-                'username' => ['Username and password error. Access denied.']
-            ]
-        ], 422);
-    }
+    //     return response()->json([
+    //         'errors' => [
+    //             'username' => ['Username and password error. Access denied.']
+    //         ]
+    //     ], 422);
+    // }
 
-    public function logout(Request $req){
+    // public function logout(Request $req){
 
-        Auth::logout();
-        $req->session()->invalidate();
+    //     Auth::logout();
+    //     $req->session()->invalidate();
 
-        $req->session()->regenerateToken();
+    //     $req->session()->regenerateToken();
 
-        return redirect('/');
+    //     return redirect('/');
+    // }
+
+    public function username(){
+        return 'username';
     }
 
 }

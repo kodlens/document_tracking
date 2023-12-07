@@ -10064,21 +10064,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.btnClass['is-loading'] = true;
-      axios.post('/custom-login', this.fields).then(function (res) {
+      axios.post('/login', this.fields).then(function (res) {
         _this.btnClass['is-loading'] = false;
-        console.log(res.data);
-
-        if (res.data.role === 'ADMINISTRATOR') {
-          window.location = '/offices';
-        }
-
-        if (res.data.role === 'LIASON') {
-          window.location = '/liason-home';
-        }
-
-        if (res.data.role === 'STAFF') {
-          window.location = '/staff-home';
-        }
+        window.location = '/login';
       })["catch"](function (err) {
         _this.btnClass['is-loading'] = false;
         _this.errors = err.response.data.errors;

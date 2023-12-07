@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Liason;
+namespace App\Http\Controllers\Liaison;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use App\Models\DocumentTrack;
 
 
 
-class LiasonDocumentController extends Controller
+class LiaisonDocumentController extends Controller
 {
     //
 

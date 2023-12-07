@@ -60,26 +60,12 @@ export default {
         submit: function(){
             this.btnClass['is-loading'] = true;
 
-            axios.post('/custom-login', this.fields).then(res=>{
+            axios.post('/login', this.fields).then(res=>{
                 this.btnClass['is-loading'] = false;
-                console.log(res.data)
-
-                if(res.data.role === 'ADMINISTRATOR'){
-                    window.location = '/offices'
-                }
-
-                if(res.data.role === 'LIASON'){
-                    window.location = '/liason-home'
-                }
-
-                if(res.data.role === 'STAFF'){
-                    window.location = '/staff-home'
-                }
-
+                window.location = '/login'
             }).catch(err=>{
             this.btnClass['is-loading'] = false;
                 this.errors = err.response.data.errors;
-
             })
         }
     }

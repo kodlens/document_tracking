@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('tacking_no')->nullable();
+            $table->string('tracking_no')->nullable();
             $table->string('document_name')->nullable();
 
 

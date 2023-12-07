@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             ],
 
             [
-                'username' => 'liason',
+                'username' => 'arnel',
                 'lname' => 'SELATONA',
                 'fname' => 'ARNEL',
                 'mname' => '',
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
                 'sex' => 'MALE',
                 'office_id' => 0,
                 'contact_no' => '09655138165',
-                'role' => 'LIASON',
+                'role' => 'LIAISON',
                 'password' => Hash::make('a')
             ],
 
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
                 'sex' => 'MALE',
                 'office_id' => 0,
                 'contact_no' => '09655138165',
-                'role' => 'LIASON',
+                'role' => 'STAFF',
                 'password' => Hash::make('a')
             ],
 

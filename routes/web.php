@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('welcome');
 });
 
 
 Auth::routes([
-    'login' => false,
+    'login' => true,
     'register' => false, // Registration Routes...
     'reset' => false, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
@@ -55,13 +55,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //LIASON
-Route::resource('/liason-home', App\Http\Controllers\Liason\LiasonHomeController::class);
-Route::get('/search-track-no', [App\Http\Controllers\Liason\LiasonHomeController::class, 'searchTrackNo']);
+Route::resource('/liaison-home', App\Http\Controllers\Liaison\LiaisonHomeController::class);
+Route::get('/search-track-no', [App\Http\Controllers\Liaison\LiaisonHomeController::class, 'searchTrackNo']);
 
-Route::resource('/documents', App\Http\Controllers\Liason\LiasonDocumentController::class);
-Route::get('/get-documents', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocuments']);
-Route::get('/get-document-routes', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocumentRoutes']);
-Route::post('/document-forward/{docId}', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'forwardDoc']);
+Route::resource('/documents', App\Http\Controllers\Liaison\LiaisonDocumentController::class);
+Route::get('/get-documents', [App\Http\Controllers\Liaison\LiaisonDocumentController::class, 'getDocuments']);
+Route::get('/get-document-routes', [App\Http\Controllers\Liaison\LiaisonDocumentController::class, 'getDocumentRoutes']);
+Route::post('/document-forward/{docId}', [App\Http\Controllers\Liaison\LiaisonDocumentController::class, 'forwardDoc']);
 
 
 
@@ -82,19 +82,20 @@ Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\Forwar
 
 
 /*     ADMINSITRATOR          */
-Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
-
-Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
-Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
-Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
-
-
-Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
-Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
-Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
 
 Route::middleware(['auth', 'admin'])->group(function() {
+
+    Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
+
+    Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
+    Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+    Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
+
+
+    Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
+    Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
+    Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
     Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
     Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);

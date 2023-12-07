@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Liason;
+namespace App\Http\Controllers\Liaison;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 
 
-class LiasonHomeController extends Controller
+class LiaisonHomeController extends Controller
 {
     //
 
