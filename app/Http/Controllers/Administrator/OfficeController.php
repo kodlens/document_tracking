@@ -44,7 +44,8 @@ class OfficeController extends Controller
         ]);
 
         Office::create([
-            'office' => strtoupper($req->office)
+            'office' => strtoupper($req->office),
+            'incharge' => strtoupper($req->incharge)
         ]);
 
         return response()->json([
@@ -59,6 +60,7 @@ class OfficeController extends Controller
 
         $data = Office::find($id);
         $data->office = strtoupper($req->office);
+        $data->incharge = strtoupper($req->incharge);
         $data->save();
 
         return response()->json([

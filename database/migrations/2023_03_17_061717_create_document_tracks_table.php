@@ -14,7 +14,7 @@ class CreateDocumentTracksTable extends Migration
     public function up()
     {
         Schema::create('document_tracks', function (Blueprint $table) {
-            $table->id();
+            $table->id('document_track_id');
 
             $table->unsignedBigInteger('document_id');
             $table->foreign('document_id')->references('document_id')->on('documents')

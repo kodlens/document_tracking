@@ -18,6 +18,7 @@ class Document extends Model
         'document_name',
         'is_done',
         'route_id',
+        'is_forwarded',
         'datetime_done'
     ];
 

@@ -84,13 +84,16 @@
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small is-warning mr-1" 
+                                        tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small is-danger mr-1" 
+                                            icon-right="delete" 
+                                            @click="confirmDelete(props.row.user_id)"></b-button>
                                     </b-tooltip>
 
-                                    <b-tooltip label="Delete" type="is-danger">
+                                    <b-tooltip label="Reset Password" type="is-info">
                                         <b-button class="button is-small is-info mr-1" 
                                             icon-right="lock" 
                                             @click="openModalResetPassword(props.row.user_id)"></b-button>

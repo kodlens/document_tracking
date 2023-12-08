@@ -64,6 +64,10 @@
                                 {{ props.row.office }}
                             </b-table-column>
 
+                            <b-table-column field="incharge" label="Incharge" v-slot="props">
+                                {{ props.row.incharge }}
+                            </b-table-column>
+
                             <b-table-column field="created_at" label="Created" v-slot="props">
                                 {{ props.row.created_at | formatDateTime }}
                             </b-table-column>
@@ -118,14 +122,25 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Office" label-position="on-border"
-                                             :type="this.errors.office ? 'is-danger':''"
-                                             :message="this.errors.office ? this.errors.office[0] : ''">
+                                        :type="this.errors.office ? 'is-danger':''"
+                                        :message="this.errors.office ? this.errors.office[0] : ''">
                                         <b-input v-model="fields.office"
-                                                 placeholder="Office" required>
+                                            placeholder="Office" required>
                                         </b-input>
                                     </b-field>
                                 </div>
                             </div>
+                            <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Person Incharge" label-position="on-border"
+                                            :type="this.errors.incharge ? 'is-danger':''"
+                                            :message="this.errors.incharge ? this.errors.incharge[0] : ''">
+                                            <b-input v-model="fields.incharge"
+                                                placeholder="Person Incharge" required>
+                                            </b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
                         
                         </div>
                     </section>
@@ -192,7 +207,7 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `lname=${this.search.lname}`,
+                `office=${this.search.office}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')

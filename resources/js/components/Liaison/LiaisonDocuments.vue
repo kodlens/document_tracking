@@ -68,6 +68,11 @@
                                 {{ props.row.document_name }}
                             </b-table-column>
 
+                            <b-table-column field="is_forwarded" label="Forwarded" v-slot="props">
+                                <span v-if="props.row.is_forwarded === 1">YES</span>
+                                <span v-else>NO</span>
+                            </b-table-column>
+
                             <b-table-column field="route" label="Route" v-slot="props">
                                 {{ props.row.route.route_name }}
                             </b-table-column>
@@ -76,7 +81,9 @@
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Forward" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="arrow-right" @click="forwardDoc(props.row.document_id)"></b-button>
+                                        <b-button class="button is-small is-warning mr-1" 
+                                            icon-right="arrow-right" 
+                                            @click="forwardDoc(props.row)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.document_id)"></b-button>
@@ -365,7 +372,18 @@ export default{
             });
         },
 
-        forwardDoc(docId){
+        forwardDoc(row){
+
+            if(row.is_forwarded === 1){
+                this.$buefy.dialog.alert({
+                    title: 'ALREADY FORWARDED',
+                    message: 'Document already forwarded.',
+                    type: 'is-info'
+                })
+                return;
+            }
+            let docId = row.document_id
+
             this.$buefy.dialog.confirm({
                 title: 'Forward?',
                 type: 'is-info',

@@ -1,5 +1,5 @@
 @extends('layouts.liason-layout')
 
 @section('content')
-    <liason-documents></liason-documents>
+    <liaison-documents></liaison-documents>
 @endsection

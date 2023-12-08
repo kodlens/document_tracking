@@ -70,6 +70,7 @@ Route::resource('/staff-home', App\Http\Controllers\Staff\StaffHomeController::c
 
 Route::resource('/staff-documents', App\Http\Controllers\Staff\StaffDocumentController::class);
 
+Route::get('/count-forwarded-doc', [App\Http\Controllers\Staff\StaffDocumentController::class, 'countForwardedDoc']);
 
 Route::get('/get-forwarded-documents', [App\Http\Controllers\Staff\ForwardedDocumentController::class, 'getForwardedDocument']);
 

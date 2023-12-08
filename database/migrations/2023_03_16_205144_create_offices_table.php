@@ -15,9 +15,9 @@ class CreateOfficesTable extends Migration
     {
         Schema::create('offices', function (Blueprint $table) {
             $table->id('office_id');
-            $table->string('office')->nullable();
-            $table->string('designate_person')->nullable();
-            $table->string('designation')->nullable();
+            $table->string('office', 100)->nullable();
+            $table->string('incharge', 100)->nullable();
+            $table->string('designation', 100)->nullable();
             $table->timestamps();
         });
     }

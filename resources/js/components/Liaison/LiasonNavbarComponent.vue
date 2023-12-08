@@ -16,7 +16,7 @@
 
             <template #end>
              
-                <b-navbar-item href="/liason-home">
+                <b-navbar-item href="/liaison-home">
                     Home
                 </b-navbar-item>
 

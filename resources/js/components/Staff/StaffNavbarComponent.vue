@@ -21,7 +21,7 @@
                 </b-navbar-item>
 
                 <b-navbar-item href="/staff-documents">
-                    Documents
+                    Documents <span v-if="count > 0" class="count">{{ count }}</span>
                 </b-navbar-item>
 
                 <b-navbar-item href="#">
@@ -56,6 +56,9 @@ export default{
             user: {
                 fname: '',
             },
+
+            count: 0,
+
         }
     },
 
@@ -72,11 +75,18 @@ export default{
             axios.get('/get-user').then(res=>{
                 this.user = res.data;
             })
+        },
+
+        countForwardedDoc(){
+            axios.get('/count-forwarded-doc').then(res=>{
+                this.count = res.data
+            })
         }
     },
 
     mounted(){
         this.loadUser()
+        this.countForwardedDoc()
     },
 
     computed: {
@@ -86,3 +96,17 @@ export default{
     }
 }
 </script>
+
+
+<style scoped>
+    .count{
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+        width: 20px;
+        margin-left: 5px;
+        text-align: center;
+        border-radius: 50%;
+    }
+</style>

@@ -36,6 +36,7 @@ class LiaisonDocumentController extends Controller
         $user = Auth::user();
 
         $data = Document::with(['route', 'document_tracks'])
+            ->where('tracking_no', 'like', $req->document . '%')
             ->where('user_id', $user->user_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
@@ -90,6 +91,10 @@ class LiaisonDocumentController extends Controller
     public function forwardDoc($id){
 
         //get the next step
+        $data = Document::find($id);
+        $data->is_forwarded = 1;
+        $data->save();
+        
         $nextData = DocumentTrack::where('document_id', $id)
             ->where('is_forwarded', 0)
             ->orderBy('order_no', 'asc')
