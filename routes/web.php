@@ -73,7 +73,6 @@ Route::post('/documents-undo-forward-process', [App\Http\Controllers\Staff\Staff
 
 Route::get('/count-forwarded-doc', [App\Http\Controllers\Staff\StaffDocumentController::class, 'countForwardedDoc']);
 
-
 Route::get('/get-forwarded-documents', [App\Http\Controllers\Staff\ForwardedDocumentController::class, 'getForwardedDocument']);
 
 Route::post('/document-receive/{id}', [App\Http\Controllers\Staff\ReceiveDocumentController::class, 'receiveDocument']);
@@ -85,8 +84,6 @@ Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\Forwar
 
 
 /*     ADMINSITRATOR          */
-
-
 Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
