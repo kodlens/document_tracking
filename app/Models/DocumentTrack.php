@@ -25,6 +25,8 @@ class DocumentTrack extends Model
         'is_process', 'dateteime_process', 'process_remarks',
         'is_done', 'datetime_done', 'done_remarks',
         'is_forwarded', 'datetime_forwarded', 'forward_remarks',
+        'back_remarks',
+        'back_datetime'
     ];
 
     public function office(){

@@ -10909,6 +10909,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10932,7 +10995,9 @@ __webpack_require__.r(__webpack_exports__);
         'is-success': true,
         'button': true,
         'is-loading': false
-      }
+      },
+      modalUnfoForwardReceive: false,
+      document: {}
     };
   },
   methods: {
@@ -11161,6 +11226,31 @@ __webpack_require__.r(__webpack_exports__);
 
             _this9.loadAsyncData();
           });
+        }
+      });
+    },
+    undoForwardReceive: function undoForwardReceive(row) {
+      this.modalUnfoForwardReceive = true;
+      console.log(row);
+      this.document = {};
+      this.document = row;
+    },
+    submitUndoForwardReceive: function submitUndoForwardReceive() {
+      var _this10 = this;
+
+      this.document.back_remarks = this.fields.back_remarks;
+      axios.post('/documents-undo-forward-process', this.document).then(function (res) {
+        if (res.data.status === 'back') {
+          _this10.$buefy.toast.open({
+            duration: 5000,
+            message: "<b>Document successfully sent back.</b>",
+            position: 'is-top',
+            type: 'is-success'
+          });
+
+          _this10.modalUnfoForwardReceive = false;
+
+          _this10.loadAsyncData();
         }
       });
     }
@@ -37305,48 +37395,63 @@ var render = function () {
                     _c("th", [_vm._v("Forward Status")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Forward Date Time")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Remarks")]),
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    props.row.is_process === 1
-                      ? _c("td", [
-                          _c("span", { staticClass: "process" }, [
+                    _c("td", [
+                      props.row.is_process === 1
+                        ? _c("span", { staticClass: "process" }, [
                             _vm._v("Processing"),
-                          ]),
-                        ])
-                      : _vm._e(),
+                          ])
+                        : _vm._e(),
+                    ]),
                     _vm._v(" "),
-                    props.row.is_process === 1
-                      ? _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("formatDateTime")(
-                                props.row.datetime_process
-                              )
-                            )
-                          ),
-                        ])
-                      : _vm._e(),
+                    _c("td", [
+                      props.row.is_process === 1
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm._f("formatDateTime")(
+                                    props.row.datetime_process
+                                  )
+                                )
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
                     _vm._v(" "),
-                    props.row.is_forwarded === 1
-                      ? _c("td", [
-                          _c("span", { staticClass: "process" }, [
+                    _c("td", [
+                      props.row.is_forwarded === 1
+                        ? _c("span", { staticClass: "process" }, [
                             _vm._v("Forwarded"),
-                          ]),
-                        ])
-                      : _vm._e(),
+                          ])
+                        : _vm._e(),
+                    ]),
                     _vm._v(" "),
-                    props.row.is_forwarded === 1
-                      ? _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("formatDateTime")(
-                                props.row.datetime_forwarded
-                              )
-                            )
-                          ),
-                        ])
-                      : _vm._e(),
+                    _c("td", [
+                      props.row.is_forwarded === 1
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm._f("formatDateTime")(
+                                    props.row.datetime_forwarded
+                                  )
+                                ) +
+                                "\n                    "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      props.row.back_remarks
+                        ? _c("span", [_vm._v(_vm._s(props.row.back_remarks))])
+                        : _vm._e(),
+                    ]),
                   ]),
                 ]
               },
@@ -37529,6 +37634,23 @@ var render = function () {
                                 },
                               },
                               [_vm._v("Forward")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: { "aria-role": "listitem" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.undoForwardReceive(props.row)
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        Undo Receive & Process\n                    "
+                                ),
+                              ]
                             ),
                           ],
                           1
@@ -37723,6 +37845,101 @@ var render = function () {
               ]),
             ]
           ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalUnfoForwardReceive,
+            callback: function ($$v) {
+              _vm.modalUnfoForwardReceive = $$v
+            },
+            expression: "modalUnfoForwardReceive",
+          },
+        },
+        [
+          _c("div", { staticClass: "modal-card" }, [
+            _c("header", { staticClass: "modal-card-head" }, [
+              _c("p", { staticClass: "modal-card-title" }, [_vm._v("Remarks")]),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "delete",
+                attrs: { type: "button" },
+                on: {
+                  click: function ($event) {
+                    _vm.modalUnfoForwardReceive = false
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "modal-card-body" }, [
+              _c("div", {}, [
+                _c("div", { staticClass: "columns" }, [
+                  _c(
+                    "div",
+                    { staticClass: "column" },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            label: "Remarks",
+                            "label-position": "on-border",
+                            type: this.errors.back_remarks ? "is-danger" : "",
+                            message: this.errors.back_remarks
+                              ? this.errors.back_remarks[0]
+                              : "",
+                          },
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: { placeholder: "Remarks", required: "" },
+                            model: {
+                              value: _vm.fields.back_remarks,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.fields, "back_remarks", $$v)
+                              },
+                              expression: "fields.back_remarks",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "footer",
+              { staticClass: "modal-card-foot" },
+              [
+                _c("b-button", {
+                  class: _vm.btnClass,
+                  attrs: {
+                    "icon-left": "arrow-left",
+                    label: "Undo Now",
+                    type: "is-success",
+                  },
+                  on: { click: _vm.submitUndoForwardReceive },
+                }),
+              ],
+              1
+            ),
+          ]),
         ]
       ),
     ],

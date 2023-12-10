@@ -69,9 +69,8 @@ class LiaisonDocumentController extends Controller
             'route_id' => $req->route_id
         ]);
 
-
         foreach($routeDetails as $detail){
-            DocumentTrack::create([
+            $docTrack = DocumentTrack::create([
                 'document_id' => $data->document_id,
                 'route_id' => $req->route_id,
                 'route_detail_id' => $detail['route_detail_id'],

@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `document_tracks`;
 CREATE TABLE `document_tracks` (
   `document_track_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `document_id` bigint(20) unsigned NOT NULL,
+  `prev_doc_track_id` bigint(20) unsigned DEFAULT 0,
   `route_id` bigint(20) unsigned NOT NULL,
   `route_detail_id` bigint(20) unsigned NOT NULL,
   `office_id` bigint(20) unsigned NOT NULL,
@@ -42,6 +43,8 @@ CREATE TABLE `document_tracks` (
   `is_forwarded` tinyint(4) NOT NULL DEFAULT 0,
   `datetime_forwarded` datetime DEFAULT NULL,
   `forward_remarks` varchar(255) DEFAULT NULL,
+  `back_remarks` text DEFAULT NULL,
+  `back_datetime` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`document_track_id`),
@@ -57,13 +60,13 @@ CREATE TABLE `document_tracks` (
 
 /*Data for the table `document_tracks` */
 
-insert  into `document_tracks`(`document_track_id`,`document_id`,`route_id`,`route_detail_id`,`office_id`,`order_no`,`is_origin`,`is_last`,`is_forward_from`,`is_received`,`datetime_received`,`receive_remarks`,`is_process`,`datetime_process`,`process_remarks`,`is_done`,`datetime_done`,`done_remarks`,`is_forwarded`,`datetime_forwarded`,`forward_remarks`,`created_at`,`updated_at`) values 
-(4,2,4,5,4,1,0,0,1,1,'2023-12-08 19:23:40',NULL,1,'2023-12-08 19:23:51',NULL,0,NULL,NULL,1,'2023-12-08 19:25:27',NULL,'2023-12-08 19:05:25','2023-12-08 19:25:27'),
-(5,2,4,6,9,2,0,0,1,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-12-08 19:05:25','2023-12-08 19:25:27'),
-(6,2,4,7,10,3,0,1,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-12-08 19:05:25','2023-12-08 19:05:25'),
-(7,3,4,5,4,1,0,0,1,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-12-08 19:28:20','2023-12-08 19:28:31'),
-(8,3,4,6,9,2,0,0,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-12-08 19:28:20','2023-12-08 19:28:20'),
-(9,3,4,7,10,3,0,1,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'2023-12-08 19:28:20','2023-12-08 19:28:20');
+insert  into `document_tracks`(`document_track_id`,`document_id`,`prev_doc_track_id`,`route_id`,`route_detail_id`,`office_id`,`order_no`,`is_origin`,`is_last`,`is_forward_from`,`is_received`,`datetime_received`,`receive_remarks`,`is_process`,`datetime_process`,`process_remarks`,`is_done`,`datetime_done`,`done_remarks`,`is_forwarded`,`datetime_forwarded`,`forward_remarks`,`back_remarks`,`back_datetime`,`created_at`,`updated_at`) values 
+(4,2,0,4,5,4,1,0,0,1,1,'2023-12-08 19:23:40',NULL,1,'2023-12-08 19:23:51',NULL,0,NULL,NULL,1,'2023-12-08 19:25:27',NULL,NULL,NULL,'2023-12-08 19:05:25','2023-12-08 19:25:27'),
+(5,2,0,4,6,9,2,0,0,1,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,'2023-12-08 19:05:25','2023-12-08 19:25:27'),
+(6,2,0,4,7,10,3,0,1,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,'2023-12-08 19:05:25','2023-12-08 19:05:25'),
+(7,3,0,4,5,4,1,0,0,1,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,'adaw','2023-12-10 13:08:00','2023-12-08 19:28:20','2023-12-10 13:08:45'),
+(8,3,0,4,6,9,2,0,0,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,'2023-12-08 19:28:20','2023-12-08 19:28:20'),
+(9,3,0,4,7,10,3,0,1,0,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,'2023-12-08 19:28:20','2023-12-08 19:28:20');
 
 /*Table structure for table `documents` */
 

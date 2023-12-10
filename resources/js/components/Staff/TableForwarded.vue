@@ -92,6 +92,10 @@
                         <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
                         <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="processDocument(props.row)">Process</b-dropdown-item>
                         <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">Forward</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" @click="undoForwardReceive(props.row)">
+                            Undo Receive & Process
+                        </b-dropdown-item>
+
                     </b-dropdown>
                 </div>
             </b-table-column>
@@ -105,19 +109,27 @@
 
                     <th>Forward Status</th>
                     <th>Forward Date Time</th>
-
+                    <th>Remarks</th>
                 </tr>
                 <tr>
-                    <td v-if="props.row.is_process === 1">
-                        <span class="process">Processing</span>
+                    <td>
+                        <span v-if="props.row.is_process === 1" class="process">Processing</span>
                     </td>
-                    <td v-if="props.row.is_process === 1">{{ props.row.datetime_process | formatDateTime }}</td> 
+                    <td>
+                        <span v-if="props.row.is_process === 1">
+                            {{ props.row.datetime_process | formatDateTime }}</span>
+                    </td> 
 
-                    <td v-if="props.row.is_forwarded === 1">
-                        <span class="process">Forwarded</span>
+                    <td>
+                        <span v-if="props.row.is_forwarded === 1" class="process">Forwarded</span>
                     </td>
-                    <td v-if="props.row.is_forwarded === 1">{{ props.row.datetime_forwarded | formatDateTime }}</td>
-
+                    <td>
+                        <span v-if="props.row.is_forwarded === 1">
+                            {{ props.row.datetime_forwarded | formatDateTime }}
+                        </span>
+                    </td>
+                    <td>
+                        <span v-if="props.row.back_remarks">{{ props.row.back_remarks }}</span></td>
                 </tr>
             </template>
 
@@ -198,6 +210,57 @@
         <!--close modal-->
 
 
+
+
+
+
+         <!--modal create-->
+         <b-modal v-model="modalUnfoForwardReceive" has-modal-card
+            trap-focus
+            :width="640"
+            aria-role="dialog"
+            aria-label="Modal"
+            aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Remarks</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalUnfoForwardReceive = false"/>
+                </header>
+
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks" label-position="on-border"
+                                            :type="this.errors.back_remarks ? 'is-danger':''"
+                                            :message="this.errors.back_remarks ? this.errors.back_remarks[0] : ''">
+                                    <b-input v-model="fields.back_remarks"
+                                        placeholder="Remarks" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    
+                    <b-button
+                        @click="submitUndoForwardReceive"
+                        :class="btnClass"
+                        icon-left="arrow-left"
+                        label="Undo Now"
+                        type="is-success"></b-button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
     </div>
 </template>
 
@@ -235,6 +298,9 @@ export default{
                 'button': true,
                 'is-loading':false,
             },
+
+            modalUnfoForwardReceive: false,
+            document: {},
 
         }
 
@@ -464,6 +530,30 @@ export default{
                     })
                 }
             });
+        },
+
+
+        undoForwardReceive(row){
+            this.modalUnfoForwardReceive = true;
+            console.log(row);
+            this.document = {}
+            this.document = row
+        },
+
+        submitUndoForwardReceive(){
+            this.document.back_remarks = this.fields.back_remarks
+            axios.post('/documents-undo-forward-process', this.document).then(res=>{
+                if(res.data.status === 'back'){
+                    this.$buefy.toast.open({
+                        duration: 5000,
+                        message: `<b>Document successfully sent back.</b>`,
+                        position: 'is-top',
+                        type: 'is-success'
+                    })
+                    this.modalUnfoForwardReceive = false
+                    this.loadAsyncData()
+                }
+            })
         }
 
     },
