@@ -44,6 +44,7 @@
                             :data="data"
                             :loading="loading"
                             paginated
+                            detailed
                             backend-pagination
                             :total="total"
                             :per-page="perPage"
@@ -90,6 +91,16 @@
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
+
+
+                            <template #detail="props">
+                                <tr>
+                                    <th>Remarks</th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </template>
                         </b-table>
 
                         <div class="float-button">

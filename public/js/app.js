@@ -9569,6 +9569,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -35263,6 +35274,7 @@ var render = function () {
                       data: _vm.data,
                       loading: _vm.loading,
                       paginated: "",
+                      detailed: "",
                       "backend-pagination": "",
                       total: _vm.total,
                       "per-page": _vm.perPage,
@@ -35274,6 +35286,18 @@ var render = function () {
                       "default-sort-direction": _vm.defaultSortDirection,
                     },
                     on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "detail",
+                        fn: function (props) {
+                          return [
+                            _c("tr", [_c("th", [_vm._v("Remarks")])]),
+                            _vm._v(" "),
+                            _c("tr", [_c("td")]),
+                          ]
+                        },
+                      },
+                    ]),
                   },
                   [
                     _c("b-table-column", {
