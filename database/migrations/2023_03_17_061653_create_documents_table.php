@@ -32,8 +32,7 @@ class CreateDocumentsTable extends Migration
             $table->dateTime('datetime_done');
             $table->tinyInteger('is_forwarded')->nullable()
                 ->default(0);
-
-
+            
             $table->timestamps();
         });
     }

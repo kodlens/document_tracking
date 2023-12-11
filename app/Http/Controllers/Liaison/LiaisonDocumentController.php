@@ -89,28 +89,30 @@ class LiaisonDocumentController extends Controller
 
     public function forwardDoc($id){
 
-        //get the next step
+        
         $data = Document::find($id);
         $data->is_forwarded = 1;
         $data->save();
-        
+
+        //get the next step
+        //get the next row/track
         $nextData = DocumentTrack::where('document_id', $id)
             ->where('is_forwarded', 0)
             ->orderBy('order_no', 'asc')
             ->limit(1)
             ->first();
 
-        DocumentTrack::where('document_id', $id)
-            ->where('is_origin', 1)
-            ->update([
-                'is_forwarded' => 1, 
-                'datetime_forwarded' => date('Y-m-d H:i:s')
-            ]);
+        // DocumentTrack::where('document_id', $id)
+        //     ->where('is_origin', 1)
+        //     ->update([
+        //         'is_forwarded' => 1, 
+        //         'datetime_forwarded' => date('Y-m-d H:i:s')
+        //     ]);
 
         DocumentTrack::where('document_track_id', $nextData->document_track_id)
             ->update([
                 'is_forward_from' => 1, 
-            ]);   
+            ]);
  
         return response()->json([
             'status' => 'forwarded'

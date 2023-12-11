@@ -9580,6 +9580,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -9766,7 +9786,7 @@ __webpack_require__.r(__webpack_exports__);
     forwardDoc: function forwardDoc(row) {
       var _this7 = this;
 
-      if (row.is_forwarded === 1) {
+      if (row.is_forwarded == 1) {
         this.$buefy.dialog.alert({
           title: 'ALREADY FORWARDED',
           message: 'Document already forwarded.',
@@ -10983,6 +11003,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11203,7 +11226,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmText: 'Yes',
         onConfirm: function onConfirm() {
           axios.post('/document-process/' + row.document_track_id).then(function (res) {
-            if (res.data.status === 'done') {
+            if (res.data.status === 'processed') {
               _this8.$buefy.toast.open({
                 duration: 5000,
                 message: "<b>Done.</b>",
@@ -11233,9 +11256,10 @@ __webpack_require__.r(__webpack_exports__);
               message: "<b>Done.</b>",
               position: 'is-top',
               type: 'is-success'
-            });
+            }); //this.loadAsyncData()
 
-            _this9.loadAsyncData();
+
+            window.location = '/staff-documents';
           });
         }
       });
@@ -35291,9 +35315,60 @@ var render = function () {
                         key: "detail",
                         fn: function (props) {
                           return [
-                            _c("tr", [_c("th", [_vm._v("Remarks")])]),
+                            _c("tr", [
+                              _c("th", [_vm._v("Office")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Received")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Process")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Forward")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Remarks")]),
+                            ]),
                             _vm._v(" "),
-                            _c("tr", [_c("td")]),
+                            _vm._l(
+                              props.row.document_tracks,
+                              function (item, index) {
+                                return _c("tr", { key: "dt" + index }, [
+                                  _c("td", [
+                                    _vm._v(_vm._s(item.office.office)),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_received
+                                      ? _c("span", [_vm._v("RECEIVED")])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_process
+                                      ? _c("span", [_vm._v("PROCESS")])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_forwarded
+                                      ? _c("span", [
+                                          item.is_last
+                                            ? _c("span", [
+                                                _vm._v("DONE/COMPLETED"),
+                                              ])
+                                            : _c("span", [_vm._v("DONE")]),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.back_remarks
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(item.back_remarks)),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                ])
+                              }
+                            ),
                           ]
                         },
                       },
@@ -35857,59 +35932,57 @@ var render = function () {
                   _c("div", { staticClass: "office-container" }, [
                     _c("strong", [_vm._v(_vm._s(item.office.office))]),
                     _vm._v(" "),
-                    item.is_origin == 0
-                      ? _c("div", [
-                          _c("div", [
-                            _vm._v(
-                              "\n                                    Received: \n                                    "
-                            ),
-                            item.is_received == 1
-                              ? _c("span", [
-                                  _c("span", { staticClass: "yes" }, [
-                                    _vm._v("Yes"),
-                                  ]),
-                                  _vm._v(
-                                    " | \n                                        "
-                                  ),
-                                  _c("span", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatDateTime")(
-                                          item.datetime_received
-                                        )
-                                      )
-                                    ),
-                                  ]),
-                                ])
-                              : _vm._e(),
-                          ]),
-                          _vm._v(" "),
-                          _c("div", [
-                            _vm._v(
-                              "\n                                    Process: \n                                    "
-                            ),
-                            item.is_process == 1
-                              ? _c("span", [
-                                  _c("span", { staticClass: "yes" }, [
-                                    _vm._v("Yes"),
-                                  ]),
-                                  _vm._v(
-                                    " | \n                                        "
-                                  ),
-                                  _c("span", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatDateTime")(
-                                          item.datetime_process
-                                        )
-                                      )
-                                    ),
-                                  ]),
-                                ])
-                              : _vm._e(),
-                          ]),
-                        ])
-                      : _vm._e(),
+                    _c("div", [
+                      _c("div", [
+                        _vm._v(
+                          "\n                                    Received: \n                                    "
+                        ),
+                        item.is_received == 1
+                          ? _c("span", [
+                              _c("span", { staticClass: "yes" }, [
+                                _vm._v("Yes"),
+                              ]),
+                              _vm._v(
+                                " | \n                                        "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDateTime")(
+                                      item.datetime_received
+                                    )
+                                  )
+                                ),
+                              ]),
+                            ])
+                          : _vm._e(),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(
+                          "\n                                    Process: \n                                    "
+                        ),
+                        item.is_process == 1
+                          ? _c("span", [
+                              _c("span", { staticClass: "yes" }, [
+                                _vm._v("Yes"),
+                              ]),
+                              _vm._v(
+                                " | \n                                        "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDateTime")(
+                                      item.datetime_process
+                                    )
+                                  )
+                                ),
+                              ]),
+                            ])
+                          : _vm._e(),
+                      ]),
+                    ]),
                     _vm._v(" "),
                     item.is_last == 1
                       ? _c("div", [
@@ -37617,35 +37690,31 @@ var render = function () {
                           },
                           [
                             _vm._v(" "),
-                            props.row.is_origin === 0
-                              ? _c(
-                                  "b-dropdown-item",
-                                  {
-                                    attrs: { "aria-role": "listitem" },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.receivedDocument(props.row)
-                                      },
-                                    },
+                            _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: { "aria-role": "listitem" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.receivedDocument(props.row)
                                   },
-                                  [_vm._v("Receive")]
-                                )
-                              : _vm._e(),
+                                },
+                              },
+                              [_vm._v("Receive")]
+                            ),
                             _vm._v(" "),
-                            props.row.is_origin === 0
-                              ? _c(
-                                  "b-dropdown-item",
-                                  {
-                                    attrs: { "aria-role": "listitem" },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.processDocument(props.row)
-                                      },
-                                    },
+                            _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: { "aria-role": "listitem" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.processDocument(props.row)
                                   },
-                                  [_vm._v("Process")]
-                                )
-                              : _vm._e(),
+                                },
+                              },
+                              [_vm._v("Process")]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-dropdown-item",
@@ -37657,7 +37726,11 @@ var render = function () {
                                   },
                                 },
                               },
-                              [_vm._v("Forward")]
+                              [
+                                props.row.is_last
+                                  ? _c("span", [_vm._v("DONE")])
+                                  : _c("span", [_vm._v("FORWARD")]),
+                              ]
                             ),
                             _vm._v(" "),
                             _c(

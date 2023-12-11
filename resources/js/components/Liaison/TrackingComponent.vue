@@ -25,7 +25,7 @@
                             <div class="office-container">
                                 <strong>{{ item.office.office }}</strong> 
 
-                                <div v-if="item.is_origin == 0">
+                                <div>
                                     <div>
                                         Received: 
                                         <span v-if="item.is_received == 1">

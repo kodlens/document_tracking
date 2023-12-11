@@ -24,7 +24,8 @@ class Document extends Model
 
     public function document_tracks(){
         return $this->hasMany(DocumentTrack::class, 'document_id', 'document_id')
-            ->with(['office']);
+            ->with(['office'])
+            ->orderBy('order_no', 'asc');
     }
 
 

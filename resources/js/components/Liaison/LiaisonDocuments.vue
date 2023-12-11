@@ -95,11 +95,31 @@
 
                             <template #detail="props">
                                 <tr>
+                                    <th>Office</th>
+                                    <th>Received</th>
+                                    <th>Process</th>
+                                    <th>Forward</th>
                                     <th>Remarks</th>
                                 </tr>
-                                <tr>
-                                    <td></td>
+                                <tr v-for="(item, index) in props.row.document_tracks" :key="`dt${index}`">
+                                    <td>{{ item.office.office }}</td>
+                                    <td>
+                                        <span v-if="item.is_received">RECEIVED</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="item.is_process">PROCESS</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="item.is_forwarded">
+                                            <span v-if="item.is_last">DONE/COMPLETED</span>
+                                            <span v-else>DONE</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span v-if="item.back_remarks">{{ item.back_remarks }}</span>
+                                    </td>
                                 </tr>
+                               
                             </template>
                         </b-table>
 
@@ -384,15 +404,18 @@ export default{
         },
 
         forwardDoc(row){
+          
+            if(row.is_forwarded == 1){
 
-            if(row.is_forwarded === 1){
                 this.$buefy.dialog.alert({
                     title: 'ALREADY FORWARDED',
                     message: 'Document already forwarded.',
                     type: 'is-info'
                 })
+
                 return;
             }
+
             let docId = row.document_id
 
             this.$buefy.dialog.confirm({

@@ -89,9 +89,12 @@
                         </template>
 
 
-                        <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" v-if="props.row.is_origin === 0" @click="processDocument(props.row)">Process</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">Forward</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" @click="processDocument(props.row)">Process</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">
+                            <span v-if="props.row.is_last">DONE</span>
+                            <span v-else>FORWARD</span>
+                        </b-dropdown-item>
                         <b-dropdown-item aria-role="listitem" @click="undoForwardReceive(props.row)">
                             Undo Receive & Process
                         </b-dropdown-item>
@@ -496,7 +499,7 @@ export default{
                 confirmText: 'Yes',
                 onConfirm: () => {
                     axios.post('/document-process/' + row.document_track_id).then(res=>{
-                        if(res.data.status === 'done'){
+                        if(res.data.status === 'processed'){
                             this.$buefy.toast.open({
                                 duration: 5000,
                                 message: `<b>Done.</b>`,
@@ -526,7 +529,8 @@ export default{
                             position: 'is-top',
                             type: 'is-success'
                         })
-                        this.loadAsyncData()
+                        //this.loadAsyncData()
+                        window.location = '/staff-documents'
                     })
                 }
             });

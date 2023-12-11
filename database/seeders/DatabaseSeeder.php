@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             OfficeSeeder::class,
             RouteSeeder::class,
             RouteDetailSeeder::class,
+            DocumentSeeder::class,
+            DocumentTrackSeeder::class
         ]);
     }
 }

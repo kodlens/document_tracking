@@ -20,7 +20,8 @@ class ForwardDocumentController extends Controller
         DocumentTrack::where('document_track_id', $id)
             ->update([
                 'is_forwarded' => 1,
-                'datetime_forwarded' => date('Y-m-d H:i:s')
+                'datetime_forwarded' => date('Y-m-d H:i:s'),
+                'back_remarks' => null
             ]);
         
             //get the next track/office
@@ -33,7 +34,7 @@ class ForwardDocumentController extends Controller
         if($nextData){
             DocumentTrack::where('document_track_id', $nextData->document_track_id)
                 ->update([
-                    'is_forward_from' => 1, 
+                    'is_forward_from' => 1
                 ]);  
         }else{
             DocumentTrack::where('document_track_id', $id)
