@@ -32946,28 +32946,6 @@ var render = function () {
                                     "false-value": "0",
                                   },
                                   model: {
-                                    value: _vm.fields.is_origin,
-                                    callback: function ($$v) {
-                                      _vm.$set(_vm.fields, "is_origin", $$v)
-                                    },
-                                    expression: "fields.is_origin",
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                            Origin\n                                    "
-                                  ),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-checkbox",
-                                {
-                                  attrs: {
-                                    "true-value": "1",
-                                    "false-value": "0",
-                                  },
-                                  model: {
                                     value: _vm.fields.is_last,
                                     callback: function ($$v) {
                                       _vm.$set(_vm.fields, "is_last", $$v)
@@ -34791,9 +34769,11 @@ var render = function () {
                                     _vm._v("STAFF"),
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "LIASON" } }, [
-                                    _vm._v("LIAISON"),
-                                  ]),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "LIAISON" } },
+                                    [_vm._v("LIAISON")]
+                                  ),
                                 ]
                               ),
                             ],

@@ -183,11 +183,11 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field>
-                                        <b-checkbox v-model="fields.is_origin"
+                                        <!-- <b-checkbox v-model="fields.is_origin"
                                             true-value="1"
                                             false-value="0">
                                                 Origin
-                                        </b-checkbox>
+                                        </b-checkbox> -->
 
                                         <b-checkbox v-model="fields.is_last"
                                             true-value="1"

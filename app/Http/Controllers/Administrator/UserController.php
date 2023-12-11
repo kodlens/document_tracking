@@ -75,6 +75,7 @@ class UserController extends Controller
     }
 
     public function update(Request $req, $id){
+
         $validate = $req->validate([
             'username' => ['required', 'max:50', 'unique:users,username,'.$id.',user_id'],
             'lname' => ['required', 'string', 'max:100'],
