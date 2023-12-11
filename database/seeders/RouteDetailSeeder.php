@@ -18,16 +18,23 @@ class RouteDetailSeeder extends Seeder
         $data = [
             [
                 'route_id' => 1,
-                'order_no' => 2,
-                'office_id' => 10,
-                'is_origin' => 0,
+                'order_no' => 1,
+                'office_id' => 1,
+                'is_origin' => 1,
                 'is_last' => 0
 
             ],
             [
                 'route_id' => 1,
-                'order_no' => 3,
+                'order_no' => 2,
                 'office_id' => 2,
+                'is_origin' => 0,
+                'is_last' => 0
+            ],
+            [
+                'route_id' => 1,
+                'order_no' => 3,
+                'office_id' => 3,
                 'is_origin' => 0,
                 'is_last' => 0
             ],
@@ -37,13 +44,6 @@ class RouteDetailSeeder extends Seeder
                 'office_id' => 4,
                 'is_origin' => 0,
                 'is_last' => 1
-            ],
-            [
-                'route_id' => 1,
-                'order_no' => 1,
-                'office_id' => 11,
-                'is_origin' => 1,
-                'is_last' => 0
             ],
             
             

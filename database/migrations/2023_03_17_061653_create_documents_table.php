@@ -27,9 +27,12 @@ class CreateDocumentsTable extends Migration
             $table->foreign('route_id')->references('route_id')->on('routes')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->tinyInteger('is_done');
-
+            $table->tinyInteger('is_done')->nullable()
+                ->default(0);
             $table->dateTime('datetime_done');
+            $table->tinyInteger('is_forwarded')->nullable()
+                ->default(0);
+
 
             $table->timestamps();
         });

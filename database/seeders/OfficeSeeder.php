@@ -16,43 +16,61 @@ class OfficeSeeder extends Seeder
         //
         $data = [
             [
+                'office' => 'TCGC - ACCOUNTING',
+                'incharge' => 'ROSMARIE P. DUHAYLUNGSOD',
+                'designation' => ''
+            ],
+            [
+                'office' => 'CITY - BUDGET OFFICE',
+                'incharge' => 'MITCH COMPO',
+                'designation' => ''
+            ],
+            [
+                'office' => 'CITY - ACCOUNTING',
+                'incharge' => 'JENIFEE',
+                'designation' => ''
+            ],
+
+            [
+                'office' => 'CITY - TREASURY',
+                'incharge' => 'MAY ANNE',
+                'designation' => ''
+            ],
+
+            [
                 'office' => 'IBFS',
-                'designate_person' => '',
+                'incharge' => '',
                 'designation' => ''
             ],
             [
                 'office' => 'ICJE',
-                'designate_person' => '',
+                'incharge' => '',
                 'designation' => ''
             ],
             [
                 'office' => 'ICS',
-                'designate_person' => '',
+                'incharge' => '',
                 'designation' => ''
             ],
-            [
-                'office' => 'ACCOUNTING',
-                'designate_person' => '',
-                'designation' => ''
-            ],
+           
             [
                 'office' => 'CISO',
-                'designate_person' => 'FRITZIE ANN FLORIDA',
+                'incharge' => 'FRITZIE ANN FLORIDA',
                 'designation' => 'CISO HEAD'
             ],
             [
                 'office' => 'REGISTRAR',
-                'designate_person' => '',
+                'incharge' => '',
                 'designation' => ''
             ],
             [
                 'office' => 'OSA',
-                'designate_person' => '',
+                'incharge' => '',
                 'designation' => ''
             ],
             [
                 'office' => 'GUIDANCE',
-                'designate_person' => 'BERNICE SUMALINOG',
+                'incharge' => 'BERNICE SUMALINOG',
                 'designation' => 'GUIDANCE COUNCILOR'
             ],
 

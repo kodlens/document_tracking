@@ -20,6 +20,10 @@ class CreateDocumentTracksTable extends Migration
             $table->foreign('document_id')->references('document_id')->on('documents')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->unsignedBigInteger('prev_doc_track_id')
+                ->default(0);
+            
+
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('route_id')->on('routes')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -34,17 +38,19 @@ class CreateDocumentTracksTable extends Migration
 
 
             $table->integer('order_no')->default(0);
+
             $table->tinyInteger('is_origin')->default(0);
             $table->tinyInteger('is_last')->default(0);
             $table->tinyInteger('is_forward_from')->default(0);
-            $table->tinyInteger('is_received')->default(0);
 
+            $table->tinyInteger('is_received')->default(0);
             $table->dateTime('datetime_received')->nullable();
             $table->string('receive_remarks')->nullable();
 
             $table->tinyInteger('is_process')->default(0);
             $table->dateTime('datetime_process')->nullable();
             $table->string('process_remarks')->nullable();
+
             $table->tinyInteger('is_done')->default(0);
             $table->dateTime('datetime_done')->nullable();
             $table->string('done_remarks')->nullable();
@@ -52,6 +58,10 @@ class CreateDocumentTracksTable extends Migration
             $table->tinyInteger('is_forwarded')->default(0);
             $table->dateTime('datetime_forwarded')->nullable();
             $table->string('forward_remarks')->nullable();
+
+            $table->string('back_remarks')->nullable();
+            $table->dateTime('back_datetime')->nullable();
+
 
             $table->timestamps();
         });

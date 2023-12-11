@@ -35,7 +35,6 @@ class StaffDocumentController extends Controller
 
     public function undoForwardReceive(Request $req){
 
-
         $officeId = Auth::user()->office_id;
         
         $data = DocumentTrack::where('document_id', $req->document_id)

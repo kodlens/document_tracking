@@ -17,7 +17,7 @@ class RouteSeeder extends Seeder
 
         $data = [
             [
-                'route_name' => 'GADTC Payroll',
+                'route_name' => 'GADTC Payroll 2023',
                 'remarks' => ''
             ],
             [
