@@ -32,11 +32,11 @@
                                         </b-select>
                                     </b-field>
                                     <b-field>
-                                        <b-checkbox v-model="item.is_origin"
+                                        <!-- <b-checkbox v-model="item.is_origin"
                                             true-value="1"
                                             false-value="0">
                                                 Origin
-                                        </b-checkbox>
+                                        </b-checkbox> -->
 
                                         <b-checkbox v-model="item.is_last"
                                             true-value="1"

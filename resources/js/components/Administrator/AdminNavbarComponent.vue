@@ -4,15 +4,17 @@
         <b-navbar>
             <template #brand>
                 <b-navbar-item>
-                    <img
-                        src=""
-                        alt=""
-                    >
+                    <b>{{ user.role }}</b>
                 </b-navbar-item>
             </template>
             <template #start>
+               
+               
+            </template>
+
+            <template #end>
                 <b-navbar-item href="/admin-home">
-                    Home
+                        Home
                 </b-navbar-item>
                 <b-navbar-item href="/offices">
                     Office
@@ -23,17 +25,6 @@
                 <b-navbar-item href="/users">
                     User
                 </b-navbar-item>
-                <!-- <b-navbar-dropdown label="Info">
-                    <b-navbar-item href="#">
-                        About
-                    </b-navbar-item>
-                    <b-navbar-item href="#">
-                        Contact
-                    </b-navbar-item>
-                </b-navbar-dropdown> -->
-            </template>
-
-            <template #end>
                 <b-navbar-item tag="div">
                     <div class="buttons">
                      
@@ -62,7 +53,9 @@ export default{
         return {
 
             open: true,
-            expandWithDelay: false
+            expandWithDelay: false,
+
+            user: {},
            
         }
     },
@@ -74,11 +67,17 @@ export default{
             }).catch(err=>{
             
             })
+        },
+
+        loadUser(){
+            axios.get('/get-user').then(res=>{
+                this.user = res.data;
+            })
         }
     },
 
     mounted(){
-
+        this.loadUser()
     }
 }
 </script>

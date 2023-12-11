@@ -7657,20 +7657,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       open: true,
-      expandWithDelay: false
+      expandWithDelay: false,
+      user: {}
     };
   },
   methods: {
@@ -7678,9 +7670,18 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/logout').then(function (res) {
         window.location = '/';
       })["catch"](function (err) {});
+    },
+    loadUser: function loadUser() {
+      var _this = this;
+
+      axios.get('/get-user').then(function (res) {
+        _this.user = res.data;
+      });
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.loadUser();
+  }
 });
 
 /***/ }),
@@ -32275,9 +32276,7 @@ var render = function () {
             key: "brand",
             fn: function () {
               return [
-                _c("b-navbar-item", [
-                  _c("img", { attrs: { src: "", alt: "" } }),
-                ]),
+                _c("b-navbar-item", [_c("b", [_vm._v(_vm._s(_vm.user.role))])]),
               ]
             },
             proxy: true,
@@ -32285,9 +32284,16 @@ var render = function () {
           {
             key: "start",
             fn: function () {
+              return undefined
+            },
+            proxy: true,
+          },
+          {
+            key: "end",
+            fn: function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/admin-home" } }, [
-                  _vm._v("\n                Home\n            "),
+                  _vm._v("\n                    Home\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "/offices" } }, [
@@ -32301,14 +32307,7 @@ var render = function () {
                 _c("b-navbar-item", { attrs: { href: "/users" } }, [
                   _vm._v("\n                User\n            "),
                 ]),
-              ]
-            },
-            proxy: true,
-          },
-          {
-            key: "end",
-            fn: function () {
-              return [
+                _vm._v(" "),
                 _c("b-navbar-item", { attrs: { tag: "div" } }, [
                   _c(
                     "div",
@@ -33133,28 +33132,6 @@ var render = function () {
                         _c(
                           "b-field",
                           [
-                            _c(
-                              "b-checkbox",
-                              {
-                                attrs: {
-                                  "true-value": "1",
-                                  "false-value": "0",
-                                },
-                                model: {
-                                  value: item.is_origin,
-                                  callback: function ($$v) {
-                                    _vm.$set(item, "is_origin", $$v)
-                                  },
-                                  expression: "item.is_origin",
-                                },
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                            Origin\n                                    "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
                             _c(
                               "b-checkbox",
                               {
