@@ -4,10 +4,7 @@
         <b-navbar>
             <template #brand>
                 <b-navbar-item>
-                    <img
-                        src=""
-                        alt=""
-                    >
+                    <b>{{ user.role }}</b>
                 </b-navbar-item>
             </template>
             <template #start>

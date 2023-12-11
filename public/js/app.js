@@ -9917,9 +9917,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10635,9 +10632,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
 //
 //
 //
@@ -34821,7 +34815,7 @@ var render = function () {
                                   ]),
                                   _vm._v(" "),
                                   _c("option", { attrs: { value: "LIASON" } }, [
-                                    _vm._v("LIASON"),
+                                    _vm._v("LIAISON"),
                                   ]),
                                 ]
                               ),
@@ -35791,9 +35785,7 @@ var render = function () {
             key: "brand",
             fn: function () {
               return [
-                _c("b-navbar-item", [
-                  _c("img", { attrs: { src: "", alt: "" } }),
-                ]),
+                _c("b-navbar-item", [_c("b", [_vm._v(_vm._s(_vm.user.role))])]),
               ]
             },
             proxy: true,
@@ -37228,9 +37220,7 @@ var render = function () {
             key: "brand",
             fn: function () {
               return [
-                _c("b-navbar-item", [
-                  _c("img", { attrs: { src: "", alt: "" } }),
-                ]),
+                _c("b-navbar-item", [_c("b", [_vm._v(_vm._s(_vm.user.role))])]),
               ]
             },
             proxy: true,

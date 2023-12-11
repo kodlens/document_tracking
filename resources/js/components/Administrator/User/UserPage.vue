@@ -241,7 +241,7 @@
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                                             <option value="STAFF">STAFF</option>
-                                            <option value="LIASON">LIASON</option>
+                                            <option value="LIASON">LIAISON</option>
                                         </b-select>
                                     </b-field>
                                 </div>
