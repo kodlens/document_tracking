@@ -11001,6 +11001,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11238,25 +11285,42 @@ __webpack_require__.r(__webpack_exports__);
     forwardDocument: function forwardDocument(row) {
       var _this9 = this;
 
-      this.$buefy.dialog.confirm({
-        title: 'Forward?',
-        type: 'is-info',
-        message: 'Are you sure you want forward the document now?',
-        cancelText: 'Cancel',
-        confirmText: 'Forward',
-        onConfirm: function onConfirm() {
-          axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
-            _this9.$buefy.toast.open({
-              duration: 5000,
-              message: "<b>Done.</b>",
-              position: 'is-top',
-              type: 'is-success'
-            }); //this.loadAsyncData()
+      if (row.is_last > 0) {} else {
+        this.$buefy.dialog.confirm({
+          title: 'Forward?',
+          type: 'is-info',
+          message: 'Are you sure you want forward the document now?',
+          cancelText: 'Cancel',
+          confirmText: 'Forward',
+          onConfirm: function onConfirm() {
+            axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
+              _this9.$buefy.toast.open({
+                duration: 5000,
+                message: "<b>Done.</b>",
+                position: 'is-top',
+                type: 'is-success'
+              }); //this.loadAsyncData()
 
 
-            window.location = '/staff-documents';
-          });
-        }
+              window.location = '/staff-documents';
+            });
+          }
+        });
+      }
+    },
+    submitDoneWithRemarks: function submitDoneWithRemarks(row) {
+      var _this10 = this;
+
+      axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
+        _this10.$buefy.toast.open({
+          duration: 5000,
+          message: "<b>Done.</b>",
+          position: 'is-top',
+          type: 'is-success'
+        }); //this.loadAsyncData()
+
+
+        window.location = '/staff-documents';
       });
     },
     undoForwardReceive: function undoForwardReceive(row) {
@@ -11266,21 +11330,21 @@ __webpack_require__.r(__webpack_exports__);
       this.document = row;
     },
     submitUndoForwardReceive: function submitUndoForwardReceive() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.document.back_remarks = this.fields.back_remarks;
       axios.post('/documents-undo-forward-process', this.document).then(function (res) {
         if (res.data.status === 'back') {
-          _this10.$buefy.toast.open({
+          _this11.$buefy.toast.open({
             duration: 5000,
             message: "<b>Document successfully sent back.</b>",
             position: 'is-top',
             type: 'is-success'
           });
 
-          _this10.modalUnfoForwardReceive = false;
+          _this11.modalUnfoForwardReceive = false;
 
-          _this10.loadAsyncData();
+          _this11.loadAsyncData();
         }
       });
     }
@@ -37979,6 +38043,101 @@ var render = function () {
                     type: "is-success",
                   },
                   on: { click: _vm.submitUndoForwardReceive },
+                }),
+              ],
+              1
+            ),
+          ]),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalDoneRemarks,
+            callback: function ($$v) {
+              _vm.modalDoneRemarks = $$v
+            },
+            expression: "modalDoneRemarks",
+          },
+        },
+        [
+          _c("div", { staticClass: "modal-card" }, [
+            _c("header", { staticClass: "modal-card-head" }, [
+              _c("p", { staticClass: "modal-card-title" }, [_vm._v("Remarks")]),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "delete",
+                attrs: { type: "button" },
+                on: {
+                  click: function ($event) {
+                    _vm.modalDoneRemarks = false
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "modal-card-body" }, [
+              _c("div", {}, [
+                _c("div", { staticClass: "columns" }, [
+                  _c(
+                    "div",
+                    { staticClass: "column" },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            label: "Remarks",
+                            "label-position": "on-border",
+                            type: this.errors.back_remarks ? "is-danger" : "",
+                            message: this.errors.back_remarks
+                              ? this.errors.back_remarks[0]
+                              : "",
+                          },
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: { placeholder: "Remarks", required: "" },
+                            model: {
+                              value: _vm.fields.back_remarks,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.fields, "back_remarks", $$v)
+                              },
+                              expression: "fields.back_remarks",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "footer",
+              { staticClass: "modal-card-foot" },
+              [
+                _c("b-button", {
+                  class: _vm.btnClass,
+                  attrs: {
+                    "icon-left": "arrow-left",
+                    label: "Undo Now",
+                    type: "is-success",
+                  },
+                  on: { click: _vm.submitDoneWithRemarks },
                 }),
               ],
               1
