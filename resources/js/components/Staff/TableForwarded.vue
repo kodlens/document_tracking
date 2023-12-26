@@ -148,12 +148,12 @@
 
         </b-table>
 
-        <div class="float-button">
+        <!-- <div class="float-button">
             <b-button @click="openModal"
                 icon-right="plus-circle-outline"
                 class="is-success is-rounded is-large">
             </b-button>
-        </div>
+        </div> -->
 
 
 

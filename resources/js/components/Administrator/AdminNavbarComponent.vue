@@ -10,6 +10,7 @@
                     </b>
                 </b-navbar-item>
             </template>
+
             <template #start>
                
                
@@ -24,6 +25,9 @@
                 </b-navbar-item>
                 <b-navbar-item href="/document-routes">
                     Route
+                </b-navbar-item>
+                <b-navbar-item href="/document-logs">
+                    Document Logs
                 </b-navbar-item>
                 <b-navbar-item href="/users">
                     User
