@@ -11070,6 +11070,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -37804,39 +37808,47 @@ var render = function () {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.forwardDocument(props.row)
+                            props.row.is_process === 1 &&
+                            props.row.is_received === 1 &&
+                            props.row.is_forwarded === 0
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.forwardDocument(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [
-                                props.row.is_last
-                                  ? _c("span", [_vm._v("DONE")])
-                                  : _c("span", [_vm._v("FORWARD")]),
-                              ]
-                            ),
+                                  [
+                                    props.row.is_last
+                                      ? _c("span", [_vm._v("DONE")])
+                                      : _c("span", [_vm._v("FORWARD")]),
+                                  ]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.undoForwardReceive(props.row)
+                            props.row.is_process === 1 &&
+                            props.row.is_received === 1 &&
+                            props.row.is_forwarded === 1
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.undoForwardReceive(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [
-                                _vm._v(
-                                  "\n                        Undo Receive & Process\n                    "
-                                ),
-                              ]
-                            ),
+                                  [
+                                    _vm._v(
+                                      "\n                        Undo Receive & Process\n                    "
+                                    ),
+                                  ]
+                                )
+                              : _vm._e(),
                           ],
                           1
                         ),
