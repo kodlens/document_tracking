@@ -89,10 +89,15 @@
                         </template>
 
 
-                        <b-dropdown-item aria-role="listitem" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="processDocument(props.row)">Process</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">
-                            <span v-if="props.row.is_last">DONE</span>
+                        <b-dropdown-item aria-role="listitem" 
+                            @click="receivedDocument(props.row)" v-if="props.row.is_received === 0">Receive</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" 
+                            @click="processDocument(props.row)"
+                            v-if="props.row.is_process === 0 && props.row.is_received === 1">Process</b-dropdown-item>
+                        <b-dropdown-item 
+                            aria-role="listitem"
+                            @click="forwardDocument(props.row)">
+                            <span v-if="props.row.is_last">DONE</span>  
                             <span v-else>FORWARD</span>
                         </b-dropdown-item>
                         <b-dropdown-item aria-role="listitem" @click="undoForwardReceive(props.row)">
@@ -351,6 +356,8 @@ export default{
 
             modalUnfoForwardReceive: false,
             document: {},
+
+            modalDoneRemarks: false,
 
         }
 

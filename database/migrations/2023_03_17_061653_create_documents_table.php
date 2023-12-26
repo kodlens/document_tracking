@@ -29,10 +29,17 @@ class CreateDocumentsTable extends Migration
 
             $table->tinyInteger('is_done')->nullable()
                 ->default(0);
-            $table->dateTime('datetime_done');
+                
+            $table->dateTime('datetime_done')
+                ->nullable();
+
             $table->tinyInteger('is_forwarded')->nullable()
                 ->default(0);
-            
+
+            $table->dateTime('fowarded_datetime')
+                ->nullable();
+
+                
             $table->timestamps();
         });
     }

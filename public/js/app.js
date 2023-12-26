@@ -7657,6 +7657,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9601,6 +9604,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -11048,6 +11065,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11073,7 +11095,8 @@ __webpack_require__.r(__webpack_exports__);
         'is-loading': false
       },
       modalUnfoForwardReceive: false,
-      document: {}
+      document: {},
+      modalDoneRemarks: false
     };
   },
   methods: {
@@ -32340,7 +32363,19 @@ var render = function () {
             key: "brand",
             fn: function () {
               return [
-                _c("b-navbar-item", [_c("b", [_vm._v(_vm._s(_vm.user.role))])]),
+                _c("b-navbar-item", [
+                  _vm.user.office_id > 0
+                    ? _c("b", [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.user.role) +
+                            "\n                    " +
+                            _vm._s(_vm.user.office.office) +
+                            "\n                "
+                        ),
+                      ])
+                    : _vm._e(),
+                ]),
               ]
             },
             proxy: true,
@@ -35479,6 +35514,41 @@ var render = function () {
                     }),
                     _vm._v(" "),
                     _c("b-table-column", {
+                      attrs: {
+                        field: "fowarded_datetime",
+                        label: "Forward Date Time",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    new Date(
+                                      props.row.fowarded_datetime
+                                    ).toLocaleDateString({
+                                      year: "numeric",
+                                      month: "long",
+                                      day: "numeric",
+                                    })
+                                  ) +
+                                  "\n                            -\n                            " +
+                                  _vm._s(
+                                    new Date(
+                                      props.row.fowarded_datetime
+                                    ).toLocaleTimeString()
+                                  ) +
+                                  "\n                            \n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
                       attrs: { label: "Action" },
                       scopedSlots: _vm._u([
                         {
@@ -35512,30 +35582,32 @@ var render = function () {
                                     1
                                   ),
                                   _vm._v(" "),
-                                  _c(
-                                    "b-tooltip",
-                                    {
-                                      attrs: {
-                                        label: "Delete",
-                                        type: "is-danger",
-                                      },
-                                    },
-                                    [
-                                      _c("b-button", {
-                                        staticClass:
-                                          "button is-small is-danger mr-1",
-                                        attrs: { "icon-right": "delete" },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.confirmDelete(
-                                              props.row.document_id
-                                            )
+                                  props.row.is_done === 0
+                                    ? _c(
+                                        "b-tooltip",
+                                        {
+                                          attrs: {
+                                            label: "Delete",
+                                            type: "is-danger",
                                           },
                                         },
-                                      }),
-                                    ],
-                                    1
-                                  ),
+                                        [
+                                          _c("b-button", {
+                                            staticClass:
+                                              "button is-small is-danger mr-1",
+                                            attrs: { "icon-right": "delete" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.confirmDelete(
+                                                  props.row.document_id
+                                                )
+                                              },
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
                                 ],
                                 1
                               ),
@@ -37701,31 +37773,36 @@ var render = function () {
                           },
                           [
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.receivedDocument(props.row)
+                            props.row.is_received === 0
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.receivedDocument(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_vm._v("Receive")]
-                            ),
+                                  [_vm._v("Receive")]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "b-dropdown-item",
-                              {
-                                attrs: { "aria-role": "listitem" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.processDocument(props.row)
+                            props.row.is_process === 0 &&
+                            props.row.is_received === 1
+                              ? _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.processDocument(props.row)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_vm._v("Process")]
-                            ),
+                                  [_vm._v("Process")]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c(
                               "b-dropdown-item",

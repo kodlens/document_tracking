@@ -4,7 +4,10 @@
         <b-navbar>
             <template #brand>
                 <b-navbar-item>
-                    <b>{{ user.role }}</b>
+                    <b v-if="user.office_id > 0">
+                        {{ user.role }}
+                        {{ (user.office.office) }}
+                    </b>
                 </b-navbar-item>
             </template>
             <template #start>

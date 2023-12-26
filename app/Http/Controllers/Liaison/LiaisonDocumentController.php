@@ -66,7 +66,8 @@ class LiaisonDocumentController extends Controller
             'user_id' => $user->user_id,
             'tracking_no' => $trakcing_no,
             'document_name' => $req->document_name,
-            'route_id' => $req->route_id
+            'route_id' => $req->route_id,
+            'fowarded_datetime' => date('Y-m-d H:i'),
         ]);
 
         foreach($routeDetails as $detail){
