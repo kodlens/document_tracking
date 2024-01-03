@@ -8459,10 +8459,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addRouteDetail: function addRouteDetail(index) {
+    addRouteDetail: function addRouteDetail() {
       this.fields.route_details.push({
         route_id: 0,
-        order_no: 0,
+        order_no: this.fields.route_details.length + 1,
         office_id: 0,
         is_origin: 0,
         is_last: 0
@@ -33770,6 +33770,17 @@ var render = function () {
                             _c(
                               "b-checkbox",
                               {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      index ===
+                                      _vm.fields.route_details.length - 1,
+                                    expression:
+                                      "index === (fields.route_details.length - 1)",
+                                  },
+                                ],
                                 attrs: {
                                   "true-value": "1",
                                   "false-value": "0",
