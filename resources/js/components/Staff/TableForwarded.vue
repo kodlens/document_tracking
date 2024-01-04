@@ -64,7 +64,7 @@
             <b-table-column field="document_name" label="Document Name" v-slot="props">
                 {{ props.row.document.document_name }}
             </b-table-column>
-            
+
             <b-table-column field="is_received" label="Received Status" v-slot="props">
                 <span v-if="props.row.is_received === 1" class="process">
                     Received
@@ -74,7 +74,7 @@
             <b-table-column field="datetime_received" label="Date Received" v-slot="props">
                 {{ props.row.datetime_received | formatDateTime }}
             </b-table-column>
-            
+
 
             <b-table-column label="Action" v-slot="props">
                 <div class="is-flex">
@@ -89,13 +89,22 @@
                         </template>
 
 
-                        <b-dropdown-item aria-role="listitem" @click="receivedDocument(props.row)">Receive</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="processDocument(props.row)">Process</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="forwardDocument(props.row)">
-                            <span v-if="props.row.is_last">DONE</span>
+                        <b-dropdown-item aria-role="listitem" 
+                            @click="receivedDocument(props.row)" v-if="props.row.is_received === 0">Receive</b-dropdown-item>
+                        <b-dropdown-item aria-role="listitem" 
+                            @click="processDocument(props.row)"
+                            v-if="props.row.is_process === 0 && props.row.is_received === 1">Process</b-dropdown-item>
+                        <b-dropdown-item 
+                            v-if="props.row.is_process === 1 && props.row.is_received === 1 && props.row.is_forwarded === 0"
+                            aria-role="listitem"
+                            @click="forwardDocument(props.row)">
+                            <span v-if="props.row.is_last">DONE</span>  
                             <span v-else>FORWARD</span>
                         </b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem" @click="undoForwardReceive(props.row)">
+                        <b-dropdown-item 
+                            v-if="props.row.is_process === 1 && props.row.is_received === 1 && props.row.is_forwarded === 1"
+                            aria-role="listitem" 
+                            @click="undoForwardReceive(props.row)">
                             Undo Receive & Process
                         </b-dropdown-item>
 
@@ -121,7 +130,7 @@
                     <td>
                         <span v-if="props.row.is_process === 1">
                             {{ props.row.datetime_process | formatDateTime }}</span>
-                    </td> 
+                    </td>
 
                     <td>
                         <span v-if="props.row.is_forwarded === 1" class="process">Forwarded</span>
@@ -139,13 +148,13 @@
 
         </b-table>
 
-        <div class="float-button">
-            <b-button @click="openModal" 
-                icon-right="plus-circle-outline" 
+        <!-- <div class="float-button">
+            <b-button @click="openModal"
+                icon-right="plus-circle-outline"
                 class="is-success is-rounded is-large">
             </b-button>
-        </div>
-                        
+        </div> -->
+
 
 
         <!--modal create-->
@@ -188,7 +197,7 @@
                                         <b-select v-model="fields.route_id"
                                             placeholder="Document Route">
 
-                                            <option v-for="(item, index) in document_routes" 
+                                            <option v-for="(item, index) in document_routes"
                                                 :key="index"
                                                 :value="item.route_id">
                                                 {{ item.route_name }}
@@ -197,11 +206,11 @@
                                     </b-field>
                                 </div>
                             </div>
-                        
+
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                        
+
                         <button
                             :class="btnClass"
                             label="Save"
@@ -250,9 +259,56 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    
+
                     <b-button
                         @click="submitUndoForwardReceive"
+                        :class="btnClass"
+                        icon-left="arrow-left"
+                        label="Undo Now"
+                        type="is-success"></b-button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
+        <!--modal create-->
+        <b-modal v-model="modalDoneRemarks" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Remarks</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalDoneRemarks = false"/>
+                </header>
+
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks" label-position="on-border"
+                                         :type="this.errors.back_remarks ? 'is-danger':''"
+                                         :message="this.errors.back_remarks ? this.errors.back_remarks[0] : ''">
+                                    <b-input v-model="fields.back_remarks"
+                                             placeholder="Remarks" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+
+                    <b-button
+                        @click="submitDoneWithRemarks"
                         :class="btnClass"
                         icon-left="arrow-left"
                         label="Undo Now"
@@ -293,7 +349,7 @@ export default{
             fields: {},
 
             errors: {},
-            
+
             document_routes: [],
 
             btnClass: {
@@ -304,6 +360,8 @@ export default{
 
             modalUnfoForwardReceive: false,
             document: {},
+
+            modalDoneRemarks: false,
 
         }
 
@@ -316,7 +374,7 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                
+
                 `trackno=${this.search.track_no}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
@@ -509,31 +567,47 @@ export default{
                             this.loadAsyncData()
                         }
                     })
-                    
+
                 }
             });
         },
 
         forwardDocument(row){
-            this.$buefy.dialog.confirm({
-                title: 'Forward?',
-                type: 'is-info',
-                message: 'Are you sure you want forward the document now?',
-                cancelText: 'Cancel',
-                confirmText: 'Forward',
-                onConfirm: () => {
-                    axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
-                        this.$buefy.toast.open({
-                            duration: 5000,
-                            message: `<b>Done.</b>`,
-                            position: 'is-top',
-                            type: 'is-success'
+            if(row.is_last > 0){
+
+            }else{
+                this.$buefy.dialog.confirm({
+                    title: 'Forward?',
+                    type: 'is-info',
+                    message: 'Are you sure you want forward the document now?',
+                    cancelText: 'Cancel',
+                    confirmText: 'Forward',
+                    onConfirm: () => {
+                        axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: `<b>Done.</b>`,
+                                position: 'is-top',
+                                type: 'is-success'
+                            })
+                            //this.loadAsyncData()
+                            window.location = '/staff-documents'
                         })
-                        //this.loadAsyncData()
-                        window.location = '/staff-documents'
-                    })
-                }
-            });
+                    }
+                });
+            }
+        },
+        submitDoneWithRemarks(row){
+            axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
+                this.$buefy.toast.open({
+                    duration: 5000,
+                    message: `<b>Done.</b>`,
+                    position: 'is-top',
+                    type: 'is-success'
+                })
+                //this.loadAsyncData()
+                window.location = '/staff-documents'
+            })
         },
 
 

@@ -32,7 +32,9 @@ Auth::routes([
 
 Route::get('/get-user', function(){
     if(Auth::check()){
-        return Auth::user();
+        $user = Auth::user();
+
+        return $user->load(['office']);
     }
 
     return [];
@@ -101,6 +103,10 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
 
     Route::resource('/document-route-details', App\Http\Controllers\Administrator\DocumentRouteDetailController::class);
+
+    Route::resource('/document-logs', App\Http\Controllers\Administrator\DocumentLogController::class);
+    Route::get('/get-document-logs', [App\Http\Controllers\Administrator\DocumentLogController::class, 'getDocumentLogs']);
+    
 
 });
 

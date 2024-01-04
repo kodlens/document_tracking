@@ -10,7 +10,7 @@ use App\Models\DocumentRoute;
 use App\Models\DocumentRouteDetail;
 use App\Models\DocumentTrack;
 
-
+use App\Models\DocumentLog;
 
 class LiaisonDocumentController extends Controller
 {
@@ -55,7 +55,7 @@ class LiaisonDocumentController extends Controller
             'route_id.required' => 'Select document route.'
         ]);
 
-        $trakcing_no = strtoupper(substr(md5(time() . $req->document_name), -15));
+        $trakcing_no = strtoupper(substr(md5(time() . $req->document_name), -7));
         $user = Auth::user();
 
         $routeDetails = DocumentRouteDetail::where('route_id', $req->route_id)
@@ -66,7 +66,8 @@ class LiaisonDocumentController extends Controller
             'user_id' => $user->user_id,
             'tracking_no' => $trakcing_no,
             'document_name' => $req->document_name,
-            'route_id' => $req->route_id
+            'route_id' => $req->route_id,
+            'fowarded_datetime' => date('Y-m-d H:i'),
         ]);
 
         foreach($routeDetails as $detail){
@@ -80,6 +81,12 @@ class LiaisonDocumentController extends Controller
                 'is_last' => $detail['is_last']
             ]);
         }
+
+        DocumentLog::create([
+            'action' => 'Document created with a tracking no of ' .$trakcing_no . '.',
+            'action_datetime' => date('Y-m-d H:i'),
+            'sys_user' => $user->lname . ', ' . $user->fname
+        ]);
 
         return response()->json([
             'status' => 'saved'

@@ -23,9 +23,15 @@ class LiaisonHomeController extends Controller
     public function searchTrackNo(Request $req){
         $trackNo = $req->trackno;
 
-        $data = Document::where('tracking_no', $trackNo)
-            ->with(['document_tracks'])
-            ->first();
+        if($trackNo != ''){
+            $data = Document::where('tracking_no', $trackNo)
+                ->with(['document_tracks'])
+                ->orWhere('document_name', 'like', $trackNo . '%')
+                ->first();
+        }else{
+            return [];
+        }
+        
 
 
         return $data;

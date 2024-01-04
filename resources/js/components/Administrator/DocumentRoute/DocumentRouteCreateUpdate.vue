@@ -38,7 +38,7 @@
                                                 Origin
                                         </b-checkbox> -->
 
-                                        <b-checkbox v-model="item.is_last"
+                                        <b-checkbox v-show="index === (fields.route_details.length - 1)" v-model="item.is_last"
                                             true-value="1"
                                             false-value="0"
                                         >
@@ -91,10 +91,11 @@ export default{
 
     methods: {
 
-        addRouteDetail(index){
+        addRouteDetail(){
+            
             this.fields.route_details.push({
                 route_id: 0,
-                order_no: 0,
+                order_no: this.fields.route_details.length + 1,
                 office_id: 0,
                 is_origin: 0,
                 is_last: 0

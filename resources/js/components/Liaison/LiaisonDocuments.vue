@@ -78,6 +78,18 @@
                                 {{ props.row.route.route_name }}
                             </b-table-column>
                          
+                            <b-table-column field="fowarded_datetime" label="Forward Date Time" v-slot="props">
+                                {{ new Date(props.row.fowarded_datetime).toLocaleDateString({
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })
+                                }}
+                                -
+                                {{ new Date(props.row.fowarded_datetime).toLocaleTimeString() }}
+                                
+                            </b-table-column>
+                            
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
@@ -86,8 +98,10 @@
                                             icon-right="arrow-right" 
                                             @click="forwardDoc(props.row)"></b-button>
                                     </b-tooltip>
-                                    <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.document_id)"></b-button>
+                                    <b-tooltip label="Delete" type="is-danger" v-if="props.row.is_done === 0">
+                                        <b-button class="button is-small is-danger mr-1" 
+                                            icon-right="delete" 
+                                            @click="confirmDelete(props.row.document_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>

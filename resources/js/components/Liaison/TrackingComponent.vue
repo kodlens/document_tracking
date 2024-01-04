@@ -19,6 +19,8 @@
                         </p>
                     </b-field>
                     <hr>
+                    <b>{{ results.document_name }}</b>
+                    <hr>
 
                     <div class="result-container">
                         <div v-for="(item, ix) in results.document_tracks" :key="ix">
