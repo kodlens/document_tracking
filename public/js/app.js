@@ -11539,8 +11539,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     undoForwardReceive: function undoForwardReceive(row) {
-      this.modalUnfoForwardReceive = true;
-      console.log(row);
+      this.modalUnfoForwardReceive = true; //console.log(row);
+
       this.document = {};
       this.document = row;
     },
@@ -11560,6 +11560,10 @@ __webpack_require__.r(__webpack_exports__);
           _this11.modalUnfoForwardReceive = false;
 
           _this11.loadAsyncData();
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this11.errors = err.response.data.errors;
         }
       });
     }
@@ -38661,9 +38665,9 @@ var render = function () {
                           attrs: {
                             label: "Remarks",
                             "label-position": "on-border",
-                            type: this.errors.back_remarks ? "is-danger" : "",
-                            message: this.errors.back_remarks
-                              ? this.errors.back_remarks[0]
+                            type: _vm.errors.back_remarks ? "is-danger" : "",
+                            message: _vm.errors.back_remarks
+                              ? _vm.errors.back_remarks[0]
                               : "",
                           },
                         },

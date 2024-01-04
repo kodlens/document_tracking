@@ -248,8 +248,8 @@
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Remarks" label-position="on-border"
-                                            :type="this.errors.back_remarks ? 'is-danger':''"
-                                            :message="this.errors.back_remarks ? this.errors.back_remarks[0] : ''">
+                                            :type="errors.back_remarks ? 'is-danger':''"
+                                            :message="errors.back_remarks ? errors.back_remarks[0] : ''">
                                     <b-input v-model="fields.back_remarks"
                                         placeholder="Remarks" required>
                                     </b-input>
@@ -613,7 +613,7 @@ export default{
 
         undoForwardReceive(row){
             this.modalUnfoForwardReceive = true;
-            console.log(row);
+            //console.log(row);
             this.document = {}
             this.document = row
         },
@@ -630,6 +630,10 @@ export default{
                     })
                     this.modalUnfoForwardReceive = false
                     this.loadAsyncData()
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors
                 }
             })
         }
