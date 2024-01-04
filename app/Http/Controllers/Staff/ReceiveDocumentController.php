@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DocumentTrack;
 use Auth;
+use App\Models\DocumentLog;
 
 
 class ReceiveDocumentController extends Controller
