@@ -11,11 +11,6 @@ class StaffDocumentController extends Controller
 {
     //
 
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
-
     public function index(){
         return view('staff.staff-documents');
     }
