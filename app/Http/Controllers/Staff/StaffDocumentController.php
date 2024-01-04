@@ -50,6 +50,7 @@ class StaffDocumentController extends Controller
         if($existOffice){
             //check if there is approve receive/process/forward
             if($nextOffice->is_received == 1 || $nextOffice->is_process == 1){
+                //throw error
                 return response()->json([
                     'errors' => [
                         'back_remarks' => ['Cannot undo, already process by the next office.']
