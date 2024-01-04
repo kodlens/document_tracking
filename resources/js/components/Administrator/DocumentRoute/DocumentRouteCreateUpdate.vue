@@ -82,9 +82,7 @@ export default{
                 route_details: [],
             },
 
-            
             offices: [],
-
 
         }
     },

@@ -11262,6 +11262,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11500,28 +11507,28 @@ __webpack_require__.r(__webpack_exports__);
     forwardDocument: function forwardDocument(row) {
       var _this9 = this;
 
-      if (row.is_last > 0) {} else {
-        this.$buefy.dialog.confirm({
-          title: 'Forward?',
-          type: 'is-info',
-          message: 'Are you sure you want forward the document now?',
-          cancelText: 'Cancel',
-          confirmText: 'Forward',
-          onConfirm: function onConfirm() {
-            axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
-              _this9.$buefy.toast.open({
-                duration: 5000,
-                message: "<b>Done.</b>",
-                position: 'is-top',
-                type: 'is-success'
-              }); //this.loadAsyncData()
+      if (row.is_last > 0) {} else {}
+
+      this.$buefy.dialog.confirm({
+        title: 'Forward?',
+        type: 'is-info',
+        message: 'Are you sure you want forward the document now?',
+        cancelText: 'Cancel',
+        confirmText: 'Forward',
+        onConfirm: function onConfirm() {
+          axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(function (res) {
+            _this9.$buefy.toast.open({
+              duration: 5000,
+              message: "<b>Done.</b>",
+              position: 'is-top',
+              type: 'is-success'
+            }); //this.loadAsyncData()
 
 
-              window.location = '/staff-documents';
-            });
-          }
-        });
-      }
+            window.location = '/staff-documents';
+          });
+        }
+      });
     },
     submitDoneWithRemarks: function submitDoneWithRemarks(row) {
       var _this10 = this;
@@ -38193,9 +38200,19 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      props.row.is_forwarded === 1
+                      props.row.is_forwarded === 1 && props.row.is_done === 0
                         ? _c("span", { staticClass: "process" }, [
-                            _vm._v("Forwarded"),
+                            _vm._v(
+                              "\n                        Forwarded\n                    "
+                            ),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      props.row.is_forwarded === 1 && props.row.is_done === 1
+                        ? _c("span", { staticClass: "process" }, [
+                            _vm._v(
+                              "\n                        Done\n                    "
+                            ),
                           ])
                         : _vm._e(),
                     ]),
@@ -38307,13 +38324,19 @@ var render = function () {
                 key: "default",
                 fn: function (props) {
                   return [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(
-                          _vm._f("formatDateTime")(props.row.datetime_received)
-                        ) +
-                        "\n        "
-                    ),
+                    props.row.datetime_received
+                      ? _c("span", [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(
+                                _vm._f("formatDateTime")(
+                                  props.row.datetime_received
+                                )
+                              ) +
+                              "\n            "
+                          ),
+                        ])
+                      : _vm._e(),
                   ]
                 },
               },

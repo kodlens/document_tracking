@@ -72,7 +72,9 @@
             </b-table-column>
 
             <b-table-column field="datetime_received" label="Date Received" v-slot="props">
-                {{ props.row.datetime_received | formatDateTime }}
+                <span v-if="props.row.datetime_received">
+                    {{ props.row.datetime_received | formatDateTime }}
+                </span>
             </b-table-column>
 
 
@@ -133,7 +135,12 @@
                     </td>
 
                     <td>
-                        <span v-if="props.row.is_forwarded === 1" class="process">Forwarded</span>
+                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 0" class="process">
+                            Forwarded
+                        </span>
+                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 1" class="process">
+                            Done
+                        </span>
                     </td>
                     <td>
                         <span v-if="props.row.is_forwarded === 1">
@@ -576,26 +583,27 @@ export default{
             if(row.is_last > 0){
 
             }else{
-                this.$buefy.dialog.confirm({
-                    title: 'Forward?',
-                    type: 'is-info',
-                    message: 'Are you sure you want forward the document now?',
-                    cancelText: 'Cancel',
-                    confirmText: 'Forward',
-                    onConfirm: () => {
-                        axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
-                            this.$buefy.toast.open({
-                                duration: 5000,
-                                message: `<b>Done.</b>`,
-                                position: 'is-top',
-                                type: 'is-success'
-                            })
-                            //this.loadAsyncData()
-                            window.location = '/staff-documents'
-                        })
-                    }
-                });
+                
             }
+            this.$buefy.dialog.confirm({
+                title: 'Forward?',
+                type: 'is-info',
+                message: 'Are you sure you want forward the document now?',
+                cancelText: 'Cancel',
+                confirmText: 'Forward',
+                onConfirm: () => {
+                    axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
+                        this.$buefy.toast.open({
+                            duration: 5000,
+                            message: `<b>Done.</b>`,
+                            position: 'is-top',
+                            type: 'is-success'
+                        })
+                        //this.loadAsyncData()
+                        window.location = '/staff-documents'
+                    })
+                }
+            });
         },
         submitDoneWithRemarks(row){
             axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
