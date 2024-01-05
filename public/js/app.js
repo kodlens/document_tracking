@@ -9801,6 +9801,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -35950,9 +35970,15 @@ var render = function () {
                               _vm._v(" "),
                               _c("th", [_vm._v("Received")]),
                               _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Received")]),
+                              _vm._v(" "),
                               _c("th", [_vm._v("Process")]),
                               _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Process")]),
+                              _vm._v(" "),
                               _c("th", [_vm._v("Forward")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Forward")]),
                               _vm._v(" "),
                               _c("th", [_vm._v("Remarks")]),
                             ]),
@@ -35972,8 +35998,36 @@ var render = function () {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
+                                    item.datetime_received
+                                      ? _c("span", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDateTime")(
+                                                item.datetime_received
+                                              )
+                                            )
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
                                     item.is_process
                                       ? _c("span", [_vm._v("PROCESS")])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.datetime_process
+                                      ? _c("span", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDateTime")(
+                                                item.datetime_process
+                                              )
+                                            )
+                                          ),
+                                        ])
                                       : _vm._e(),
                                   ]),
                                   _vm._v(" "),
@@ -35987,6 +36041,36 @@ var render = function () {
                                             : _c("span", [_vm._v("DONE")]),
                                         ])
                                       : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_last
+                                      ? _c("span", [
+                                          item.datetime_done
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("formatDateTime")(
+                                                      item.datetime_done
+                                                    )
+                                                  ) + " (DONE)"
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                        ])
+                                      : _c("span", [
+                                          item.datetime_forwarded
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("formatDateTime")(
+                                                      item.datetime_forwarded
+                                                    )
+                                                  )
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                        ]),
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [

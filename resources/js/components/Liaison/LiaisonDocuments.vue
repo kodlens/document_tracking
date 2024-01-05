@@ -111,8 +111,11 @@
                                 <tr>
                                     <th>Office</th>
                                     <th>Received</th>
+                                    <th>Date Time Received</th>
                                     <th>Process</th>
+                                    <th>Date Time Process</th>
                                     <th>Forward</th>
+                                    <th>Date Time Forward</th>
                                     <th>Remarks</th>
                                 </tr>
                                 <tr v-for="(item, index) in props.row.document_tracks" :key="`dt${index}`">
@@ -120,8 +123,16 @@
                                     <td>
                                         <span v-if="item.is_received">RECEIVED</span>
                                     </td>
+
+                                    <td>
+                                        <span v-if="item.datetime_received">{{ item.datetime_received | formatDateTime }}</span>
+                                    </td>
+                                    
                                     <td>
                                         <span v-if="item.is_process">PROCESS</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="item.datetime_process">{{ item.datetime_process | formatDateTime }}</span>
                                     </td>
                                     <td>
                                         <span v-if="item.is_forwarded">
@@ -129,6 +140,15 @@
                                             <span v-else>DONE</span>
                                         </span>
                                     </td>
+                                    <td>
+                                        <span v-if="item.is_last">
+                                            <span v-if="item.datetime_done">{{ item.datetime_done | formatDateTime }} (DONE)</span>
+                                        </span>
+                                        <span v-else>
+                                            <span v-if="item.datetime_forwarded">{{ item.datetime_forwarded | formatDateTime }}</span>
+                                        </span>
+                                    </td>
+
                                     <td>
                                         <span v-if="item.back_remarks">{{ item.back_remarks }}</span>
                                     </td>
