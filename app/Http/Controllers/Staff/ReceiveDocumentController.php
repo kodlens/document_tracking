@@ -21,14 +21,16 @@ class ReceiveDocumentController extends Controller
     public function receiveDocument($id){
         $user = Auth::user();
 
-        DocumentTrack::where('document_track_id', $id)
-            ->update([
-                'is_received' => 1,
-                'datetime_received' => date('Y-m-d H:i:s')
-            ]);
+        $doc = DocumentTrack::with(['document'])
+            ->find($id);
         
+        $doc->is_received = 1;
+        $doc->datetime_received = date('Y-m-d H:i:s');
+        $doc->save();
+
         DocumentLog::create([
-            'action' => 'Document is forwarded.',
+            'tracking_no' => $doc->document->tracking_no,
+            'action' => 'RECEIVED',
             'action_datetime' => date('Y-m-d H:i'),
             'sys_user' => $user->lname . ', ' . $user->fname
         ]);

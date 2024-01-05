@@ -83,7 +83,8 @@ class LiaisonDocumentController extends Controller
         }
 
         DocumentLog::create([
-            'action' => 'Document created with a tracking no of ' .$trakcing_no . '.',
+            'tracking_no' => $trakcing_no,
+            'action' => 'CREATED',
             'action_datetime' => date('Y-m-d H:i'),
             'sys_user' => $user->lname . ', ' . $user->fname
         ]);
@@ -95,7 +96,6 @@ class LiaisonDocumentController extends Controller
     }
 
     public function forwardDoc($id){
-
         
         $data = Document::find($id);
         $data->is_forwarded = 1;
@@ -120,6 +120,14 @@ class LiaisonDocumentController extends Controller
             ->update([
                 'is_forward_from' => 1, 
             ]);
+        
+        $user = Auth::user();
+        DocumentLog::create([
+            'tracking_no' => $data->trakcing_no,
+            'action' => 'FORWARDED',
+            'action_datetime' => date('Y-m-d H:i'),
+            'sys_user' => $user->lname . ', ' . $user->fname
+        ]);
  
         return response()->json([
             'status' => 'forwarded'

@@ -24,7 +24,6 @@ class CreateDocumentLogsTable extends Migration
 
             $table->string('sys_user', 100)
                 ->nullable();
-        
 
             $table->timestamps();
         });

@@ -74,8 +74,6 @@
 
                         </b-table>
 
-                      
-
                     </div>
                 </div><!--col -->
             </div><!-- cols -->
