@@ -34,4 +34,10 @@ class Document extends Model
         return $this->hasOne(DocumentRoute::class, 'route_id', 'route_id');
     }
 
+    public function document_logs(){
+        return $this->hasMany(DocumentLog::class, 'tracking_no', 'tracking_no')
+            ->orderBy('document_log_id', 'asc');
+    }
+    
+
 }

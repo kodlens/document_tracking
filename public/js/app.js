@@ -9795,30 +9795,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -10167,6 +10143,487 @@ __webpack_require__.r(__webpack_exports__);
     firstName: function firstName() {
       return this.user.fname.toUpperCase();
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chenfengyuan/vue-qrcode */ "./node_modules/@chenfengyuan/vue-qrcode/dist/vue-qrcode.js");
+/* harmony import */ var _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data: [],
+      total: 0,
+      loading: false,
+      sortField: 'document_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
+      global_id: 0,
+      search: {
+        document: ''
+      },
+      isModalCreate: false,
+      fields: {},
+      errors: {},
+      document_routes: [],
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      }
+    };
+  },
+  methods: {
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "document=".concat(this.search.document), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/get-documents?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.data = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this.perPage > 1000) {
+          currentTotal = _this.perPage * 1000;
+        }
+
+        _this.total = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this.data.push(item);
+        });
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.data = [];
+        _this.total = 0;
+        _this.loading = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChange: function onPageChange(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSort: function onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPage: function setPerPage() {
+      this.loadAsyncData();
+    },
+    openModal: function openModal() {
+      this.isModalCreate = true;
+      this.fields = {};
+      this.errors = {};
+    },
+    loadDocumentRoutes: function loadDocumentRoutes() {
+      var _this2 = this;
+
+      axios.get('/get-document-routes').then(function (res) {
+        _this2.document_routes = res.data;
+      });
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      if (this.global_id > 0) {
+        //update
+        axios.put('/documents/' + this.global_id, this.fields).then(function (res) {
+          if (res.data.status === 'updated') {
+            _this3.$buefy.dialog.alert({
+              title: 'UPDATED!',
+              message: 'Successfully updated.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                _this3.loadAsyncData();
+
+                _this3.clearFields();
+
+                _this3.global_id = 0;
+                _this3.isModalCreate = false;
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this3.errors = err.response.data.errors;
+          }
+        });
+      } else {
+        //INSERT HERE
+        axios.post('/documents', this.fields).then(function (res) {
+          if (res.data.status === 'saved') {
+            _this3.$buefy.dialog.alert({
+              title: 'SAVED!',
+              message: 'Successfully saved.',
+              type: 'is-success',
+              confirmText: 'OK',
+              onConfirm: function onConfirm() {
+                _this3.isModalCreate = false;
+
+                _this3.loadAsyncData();
+
+                _this3.clearFields();
+
+                _this3.global_id = 0;
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this3.errors = err.response.data.errors;
+          }
+        });
+      }
+    },
+    //alert box ask for deletion
+    confirmDelete: function confirmDelete(delete_id) {
+      var _this4 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to delete this data?',
+        cancelText: 'Cancel',
+        confirmText: 'Delete',
+        onConfirm: function onConfirm() {
+          return _this4.deleteSubmit(delete_id);
+        }
+      });
+    },
+    //execute delete after confirming
+    deleteSubmit: function deleteSubmit(delete_id) {
+      var _this5 = this;
+
+      axios["delete"]('/documents/' + delete_id).then(function (res) {
+        _this5.loadAsyncData();
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this5.errors = err.response.data.errors;
+        }
+      });
+    },
+    clearFields: function clearFields() {
+      this.fields = {
+        office: ''
+      };
+    },
+    //update code here
+    getData: function getData(data_id) {
+      var _this6 = this;
+
+      this.clearFields();
+      this.global_id = data_id;
+      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
+
+      axios.get('/documents/' + data_id).then(function (res) {
+        _this6.fields = res.data;
+      });
+    },
+    forwardDoc: function forwardDoc(row) {
+      var _this7 = this;
+
+      if (row.is_forwarded == 1) {
+        this.$buefy.dialog.alert({
+          title: 'ALREADY FORWARDED',
+          message: 'Document already forwarded.',
+          type: 'is-info'
+        });
+        return;
+      }
+
+      var docId = row.document_id;
+      this.$buefy.dialog.confirm({
+        title: 'Forward?',
+        type: 'is-info',
+        message: 'Are you sure you want forward the document now?',
+        cancelText: 'Cancel',
+        confirmText: 'Forward',
+        onConfirm: function onConfirm() {
+          axios.post('/document-forward/' + docId).then(function (res) {
+            if (res.data.status === 'forwarded') {
+              _this7.$buefy.toast.open({
+                duration: 5000,
+                message: "Document successfully <b>forwarded</b>.",
+                position: 'is-top',
+                type: 'is-success'
+              });
+            }
+          });
+
+          _this7.loadAsyncData();
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadAsyncData();
+    this.loadDocumentRoutes();
   }
 });
 
@@ -31397,6 +31854,45 @@ component.options.__file = "resources/js/components/Liaison/LiasonNavbarComponen
 
 /***/ }),
 
+/***/ "./resources/js/components/Liaison/OldLiaisonDocuments.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/Liaison/OldLiaisonDocuments.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OldLiaisonDocuments.vue?vue&type=template&id=68574935& */ "./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935&");
+/* harmony import */ var _OldLiaisonDocuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OldLiaisonDocuments.vue?vue&type=script&lang=js& */ "./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OldLiaisonDocuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__.render,
+  _OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Liaison/OldLiaisonDocuments.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Liaison/TrackingComponent.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/components/Liaison/TrackingComponent.vue ***!
@@ -31973,6 +32469,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OldLiaisonDocuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OldLiaisonDocuments.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OldLiaisonDocuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Liaison/TrackingComponent.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************!*\
   !*** ./resources/js/components/Liaison/TrackingComponent.vue?vue&type=script&lang=js& ***!
@@ -32421,6 +32933,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LiasonNavbarComponent_vue_vue_type_template_id_049aa03c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LiasonNavbarComponent_vue_vue_type_template_id_049aa03c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LiasonNavbarComponent.vue?vue&type=template&id=049aa03c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/LiasonNavbarComponent.vue?vue&type=template&id=049aa03c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OldLiaisonDocuments_vue_vue_type_template_id_68574935___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OldLiaisonDocuments.vue?vue&type=template&id=68574935& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935&");
 
 
 /***/ }),
@@ -35966,42 +36495,34 @@ var render = function () {
                             _c("tr", [
                               _c("th", [_vm._v("Office")]),
                               _vm._v(" "),
-                              _c("th", [_vm._v("Received")]),
+                              _c("th", [_vm._v("Action")]),
                               _vm._v(" "),
-                              _c("th", [_vm._v("Date Time Received")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Process")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Date Time Process")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Forward")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Date Time Forward")]),
+                              _c("th", [_vm._v("Date Time")]),
                               _vm._v(" "),
                               _c("th", [_vm._v("Remarks")]),
                             ]),
                             _vm._v(" "),
                             _vm._l(
-                              props.row.document_tracks,
+                              props.row.document_logs,
                               function (item, index) {
                                 return _c("tr", { key: "dt" + index }, [
-                                  _c("td", [
-                                    _vm._v(_vm._s(item.office.office)),
-                                  ]),
+                                  _c("td", [_vm._v(_vm._s(item.office))]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    item.is_received
-                                      ? _c("span", [_vm._v("RECEIVED")])
+                                    item.action
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(item.action)),
+                                        ])
                                       : _vm._e(),
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    item.datetime_received
+                                    item.action_datetime
                                       ? _c("span", [
                                           _vm._v(
                                             _vm._s(
                                               _vm._f("formatDateTime")(
-                                                item.datetime_received
+                                                item.action_datetime
                                               )
                                             )
                                           ),
@@ -36010,71 +36531,9 @@ var render = function () {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    item.is_process
-                                      ? _c("span", [_vm._v("PROCESS")])
-                                      : _vm._e(),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    item.datetime_process
+                                    item.remarks
                                       ? _c("span", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm._f("formatDateTime")(
-                                                item.datetime_process
-                                              )
-                                            )
-                                          ),
-                                        ])
-                                      : _vm._e(),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    item.is_forwarded
-                                      ? _c("span", [
-                                          item.is_last
-                                            ? _c("span", [
-                                                _vm._v("DONE/COMPLETED"),
-                                              ])
-                                            : _c("span", [_vm._v("DONE")]),
-                                        ])
-                                      : _vm._e(),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    item.is_last
-                                      ? _c("span", [
-                                          item.datetime_done
-                                            ? _c("span", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm._f("formatDateTime")(
-                                                      item.datetime_done
-                                                    )
-                                                  ) + " (DONE)"
-                                                ),
-                                              ])
-                                            : _vm._e(),
-                                        ])
-                                      : _c("span", [
-                                          item.datetime_forwarded
-                                            ? _c("span", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm._f("formatDateTime")(
-                                                      item.datetime_forwarded
-                                                    )
-                                                  )
-                                                ),
-                                              ])
-                                            : _vm._e(),
-                                        ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    item.back_remarks
-                                      ? _c("span", [
-                                          _vm._v(_vm._s(item.back_remarks)),
+                                          _vm._v(_vm._s(item.remarks)),
                                         ])
                                       : _vm._e(),
                                   ]),
@@ -36597,6 +37056,728 @@ var render = function () {
           },
         ]),
       }),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Liaison/OldLiaisonDocuments.vue?vue&type=template&id=68574935& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c("div", { staticClass: "column is-8-desktop is-10-tablet" }, [
+            _c(
+              "div",
+              { staticClass: "box box-table" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "is-flex is-justify-content-center mb-2",
+                    staticStyle: { "font-size": "20px", "font-weight": "bold" },
+                  },
+                  [_vm._v("LIST OF DOCUMENTS")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c(
+                    "div",
+                    { staticClass: "level-left" },
+                    [
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Page" } },
+                        [
+                          _c(
+                            "b-select",
+                            {
+                              on: { input: _vm.setPerPage },
+                              model: {
+                                value: _vm.perPage,
+                                callback: function ($$v) {
+                                  _vm.perPage = $$v
+                                },
+                                expression: "perPage",
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("5 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "10" } }, [
+                                _vm._v("10 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "15" } }, [
+                                _vm._v("15 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "20" } }, [
+                                _vm._v("20 per page"),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-select",
+                            {
+                              on: { input: _vm.loadAsyncData },
+                              model: {
+                                value: _vm.sortOrder,
+                                callback: function ($$v) {
+                                  _vm.sortOrder = $$v
+                                },
+                                expression: "sortOrder",
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "asc" } }, [
+                                _vm._v("ASC"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "desc" } }, [
+                                _vm._v("DESC"),
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-right" }, [
+                    _c(
+                      "div",
+                      { staticClass: "level-item" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Search" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                type: "text",
+                                placeholder: "Search document",
+                              },
+                              nativeOn: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.loadAsyncData.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                              },
+                              model: {
+                                value: _vm.search.document,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.search, "document", $$v)
+                                },
+                                expression: "search.document",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "b-tooltip",
+                                  {
+                                    attrs: {
+                                      label: "Search",
+                                      type: "is-success",
+                                    },
+                                  },
+                                  [
+                                    _c("b-button", {
+                                      attrs: {
+                                        type: "is-primary",
+                                        "icon-right": "account-filter",
+                                      },
+                                      on: { click: _vm.loadAsyncData },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-table",
+                  {
+                    attrs: {
+                      data: _vm.data,
+                      loading: _vm.loading,
+                      paginated: "",
+                      detailed: "",
+                      "backend-pagination": "",
+                      total: _vm.total,
+                      "per-page": _vm.perPage,
+                      "aria-next-label": "Next page",
+                      "aria-previous-label": "Previous page",
+                      "aria-page-label": "Page",
+                      "aria-current-label": "Current page",
+                      "backend-sorting": "",
+                      "default-sort-direction": _vm.defaultSortDirection,
+                    },
+                    on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "detail",
+                        fn: function (props) {
+                          return [
+                            _c("tr", [
+                              _c("th", [_vm._v("Office")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Received")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Received")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Process")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Process")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Forward")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Date Time Forward")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Remarks")]),
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(
+                              props.row.document_tracks,
+                              function (item, index) {
+                                return _c("tr", { key: "dt" + index }, [
+                                  _c("td", [
+                                    _vm._v(_vm._s(item.office.office)),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_received
+                                      ? _c("span", [_vm._v("RECEIVED")])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.datetime_received
+                                      ? _c("span", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDateTime")(
+                                                item.datetime_received
+                                              )
+                                            )
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_process
+                                      ? _c("span", [_vm._v("PROCESS")])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.datetime_process
+                                      ? _c("span", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("formatDateTime")(
+                                                item.datetime_process
+                                              )
+                                            )
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_forwarded
+                                      ? _c("span", [
+                                          item.is_last
+                                            ? _c("span", [
+                                                _vm._v("DONE/COMPLETED"),
+                                              ])
+                                            : _c("span", [_vm._v("DONE")]),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.is_last
+                                      ? _c("span", [
+                                          item.datetime_done
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("formatDateTime")(
+                                                      item.datetime_done
+                                                    )
+                                                  ) + " (DONE)"
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                        ])
+                                      : _c("span", [
+                                          item.datetime_forwarded
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("formatDateTime")(
+                                                      item.datetime_forwarded
+                                                    )
+                                                  )
+                                                ),
+                                              ])
+                                            : _vm._e(),
+                                        ]),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    item.back_remarks
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(item.back_remarks)),
+                                        ])
+                                      : _vm._e(),
+                                  ]),
+                                ])
+                              }
+                            ),
+                          ]
+                        },
+                      },
+                    ]),
+                  },
+                  [
+                    _c("b-table-column", {
+                      attrs: { field: "document_id", label: "ID" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.document_id) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "tracking_no", label: "Tracking No." },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.tracking_no) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "document_name", label: "Document Name" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.document_name) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "is_forwarded", label: "Forwarded" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              props.row.is_forwarded === 1
+                                ? _c("span", [_vm._v("YES")])
+                                : _c("span", [_vm._v("NO")]),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "route", label: "Route" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.route.route_name) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: {
+                        field: "fowarded_datetime",
+                        label: "Forward Date Time",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    new Date(
+                                      props.row.fowarded_datetime
+                                    ).toLocaleDateString({
+                                      year: "numeric",
+                                      month: "long",
+                                      day: "numeric",
+                                    })
+                                  ) +
+                                  "\n                            -\n                            " +
+                                  _vm._s(
+                                    new Date(
+                                      props.row.fowarded_datetime
+                                    ).toLocaleTimeString()
+                                  ) +
+                                  "\n                            \n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { label: "Action" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _c(
+                                "div",
+                                { staticClass: "is-flex" },
+                                [
+                                  _c(
+                                    "b-tooltip",
+                                    {
+                                      attrs: {
+                                        label: "Forward",
+                                        type: "is-warning",
+                                      },
+                                    },
+                                    [
+                                      _c("b-button", {
+                                        staticClass:
+                                          "button is-small is-warning mr-1",
+                                        attrs: { "icon-right": "arrow-right" },
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.forwardDoc(props.row)
+                                          },
+                                        },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  props.row.is_done === 0
+                                    ? _c(
+                                        "b-tooltip",
+                                        {
+                                          attrs: {
+                                            label: "Delete",
+                                            type: "is-danger",
+                                          },
+                                        },
+                                        [
+                                          _c("b-button", {
+                                            staticClass:
+                                              "button is-small is-danger mr-1",
+                                            attrs: { "icon-right": "delete" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.confirmDelete(
+                                                  props.row.document_id
+                                                )
+                                              },
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                ],
+                                1
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "float-button" },
+                  [
+                    _c("b-button", {
+                      staticClass: "is-success is-rounded is-large",
+                      attrs: { "icon-right": "plus-circle-outline" },
+                      on: { click: _vm.openModal },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.isModalCreate,
+            callback: function ($$v) {
+              _vm.isModalCreate = $$v
+            },
+            expression: "isModalCreate",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submit.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Document Information"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.isModalCreate = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Document",
+                                "label-position": "on-border",
+                                type: this.errors.document_name
+                                  ? "is-danger"
+                                  : "",
+                                message: this.errors.document_name
+                                  ? this.errors.document_name[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: {
+                                  placeholder: "Document Name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.fields.document_name,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "document_name", $$v)
+                                  },
+                                  expression: "fields.document_name",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Document Route",
+                                "label-position": "on-border",
+                                type: this.errors.route_id ? "is-danger" : "",
+                                message: this.errors.route_id
+                                  ? this.errors.route_id[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { placeholder: "Document Route" },
+                                  model: {
+                                    value: _vm.fields.route_id,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "route_id", $$v)
+                                    },
+                                    expression: "fields.route_id",
+                                  },
+                                },
+                                _vm._l(
+                                  _vm.document_routes,
+                                  function (item, index) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: index,
+                                        domProps: { value: item.route_id },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(item.route_name) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    )
+                                  }
+                                ),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("footer", { staticClass: "modal-card-foot" }, [
+                  _c(
+                    "button",
+                    {
+                      class: _vm.btnClass,
+                      attrs: { label: "Save", type: "is-success" },
+                    },
+                    [_vm._v("SAVE")]
+                  ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
     ],
     1
   )
@@ -62572,6 +63753,7 @@ var map = {
 	"./components/Liaison/LiaisonDocuments.vue": "./resources/js/components/Liaison/LiaisonDocuments.vue",
 	"./components/Liaison/LiasonHome.vue": "./resources/js/components/Liaison/LiasonHome.vue",
 	"./components/Liaison/LiasonNavbarComponent.vue": "./resources/js/components/Liaison/LiasonNavbarComponent.vue",
+	"./components/Liaison/OldLiaisonDocuments.vue": "./resources/js/components/Liaison/OldLiaisonDocuments.vue",
 	"./components/Liaison/TrackingComponent.vue": "./resources/js/components/Liaison/TrackingComponent.vue",
 	"./components/Login.vue": "./resources/js/components/Login.vue",
 	"./components/Modals/ModalBrowseItem.vue": "./resources/js/components/Modals/ModalBrowseItem.vue",

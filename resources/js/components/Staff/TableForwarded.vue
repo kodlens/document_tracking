@@ -532,7 +532,6 @@ export default{
             });
         },
 
-
         receivedDocument(row){
             this.$buefy.dialog.confirm({
                 title: 'Receive?',

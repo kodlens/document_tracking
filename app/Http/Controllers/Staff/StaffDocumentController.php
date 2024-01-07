@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\DocumentTrack;
-
+use App\Models\DocumentLog;
 class StaffDocumentController extends Controller
 {
     //
@@ -30,17 +30,19 @@ class StaffDocumentController extends Controller
 
     public function undoForwardReceive(Request $req){
 
-        $officeId = Auth::user()->office_id;
+        $user = Auth::user();
         
-        $data = DocumentTrack::where('document_id', $req->document_id)
-            ->where('office_id', $officeId)
+        $data = DocumentTrack::with(['document', 'office'])
+            ->where('document_id', $req->document_id)
+            ->where('office_id', $user->office_id)
             ->first();
 
         //get current order/sequence no
         $orderNo = $data->order_no;
         
         //check if there is another exist office next to the order/sequence no
-        $next = DocumentTrack::where('document_id', $req->document_id)
+        $next = DocumentTrack::with(['office', 'document'])
+            ->where('document_id', $req->document_id)
             ->where('order_no', $orderNo + 1); // increment 1;
         
         $existOffice = $next->exists();
@@ -73,6 +75,16 @@ class StaffDocumentController extends Controller
         $data->back_datetime = date('Y-m-d H:i');
 
         $data->save();
+
+        DocumentLog::create([
+            'tracking_no' => $data->document_tracking_no,
+            'action' => 'RETURN',
+            'action_datetime' => date('Y-m-d H:i'),
+            'sys_user' => $user->lname . ', ' . $user->fname,
+            'office' => $data->office->office,
+            'remarks' => $req->back_remarks
+        ]);
+        
 
         return response()->json([
             'status' => 'back'

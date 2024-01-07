@@ -71,7 +71,6 @@ Route::post('/document-forward/{docId}', [App\Http\Controllers\Liaison\LiaisonDo
 Route::resource('/staff-home', App\Http\Controllers\Staff\StaffHomeController::class);
 
 Route::resource('/staff-documents', App\Http\Controllers\Staff\StaffDocumentController::class);
-Route::post('/documents-undo-forward-process', [App\Http\Controllers\Staff\StaffDocumentController::class, 'undoForwardReceive']);
 
 Route::get('/count-forwarded-doc', [App\Http\Controllers\Staff\StaffDocumentController::class, 'countForwardedDoc']);
 
@@ -83,6 +82,7 @@ Route::post('/document-process/{id}', [App\Http\Controllers\Staff\ProcessDocumen
 
 Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\ForwardDocumentController::class, 'forwardDocument']);
 
+Route::post('/documents-undo-forward-process', [App\Http\Controllers\Staff\StaffDocumentController::class, 'undoForwardReceive']);
 
 
 /*     ADMINSITRATOR          */

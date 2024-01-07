@@ -12,16 +12,14 @@ use App\Models\DocumentLog;
 class ReceiveDocumentController extends Controller
 {
     //
-
     public function __construct(){
         $this->middleware('auth');
     }
 
-
     public function receiveDocument($id){
         $user = Auth::user();
 
-        $doc = DocumentTrack::with(['document'])
+        $doc = DocumentTrack::with(['document', 'office'])
             ->find($id);
         
         $doc->is_received = 1;
@@ -32,7 +30,8 @@ class ReceiveDocumentController extends Controller
             'tracking_no' => $doc->document->tracking_no,
             'action' => 'RECEIVED',
             'action_datetime' => date('Y-m-d H:i'),
-            'sys_user' => $user->lname . ', ' . $user->fname
+            'sys_user' => $user->lname . ', ' . $user->fname,
+            'office' => $doc->office->office
         ]);
         
         return response()->json([

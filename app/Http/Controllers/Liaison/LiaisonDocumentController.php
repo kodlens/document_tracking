@@ -35,7 +35,7 @@ class LiaisonDocumentController extends Controller
 
         $user = Auth::user();
 
-        $data = Document::with(['route', 'document_tracks'])
+        $data = Document::with(['route', 'document_tracks', 'document_logs'])
             ->where('tracking_no', 'like', $req->document . '%')
             ->where('user_id', $user->user_id)
             ->orderBy($sort[0], $sort[1])
@@ -86,12 +86,13 @@ class LiaisonDocumentController extends Controller
             'tracking_no' => $trakcing_no,
             'action' => 'CREATED',
             'action_datetime' => date('Y-m-d H:i'),
-            'sys_user' => $user->lname . ', ' . $user->fname
+            'sys_user' => $user->lname . ', ' . $user->fname,
+            'office' => 'ORIGIN'
         ]);
 
         return response()->json([
             'status' => 'saved'
-        ], 200);;
+        ], 200);
 
     }
 
@@ -116,17 +117,18 @@ class LiaisonDocumentController extends Controller
         //         'datetime_forwarded' => date('Y-m-d H:i:s')
         //     ]);
 
-        DocumentTrack::where('document_track_id', $nextData->document_track_id)
-            ->update([
-                'is_forward_from' => 1, 
-            ]);
+        $nxt = DocumentTrack::with('office')->find($nextData->document_track_id);
+        $nxt->is_forward_from = 1;
+        $nxt->save();
+        
         
         $user = Auth::user();
         DocumentLog::create([
-            'tracking_no' => $data->trakcing_no,
+            'tracking_no' => $data->tracking_no,
             'action' => 'FORWARDED',
             'action_datetime' => date('Y-m-d H:i'),
-            'sys_user' => $user->lname . ', ' . $user->fname
+            'sys_user' => $user->lname . ', ' . $user->fname,
+            'office' => $nxt->office->office
         ]);
  
         return response()->json([

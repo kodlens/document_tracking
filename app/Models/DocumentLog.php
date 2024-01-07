@@ -16,7 +16,9 @@ class DocumentLog extends Model
         'action',
         'action_datetime',
         'sys_user',
-        'tracking_no'
+        'tracking_no',
+        'office',
+        'remarks'
     ];
 
 
