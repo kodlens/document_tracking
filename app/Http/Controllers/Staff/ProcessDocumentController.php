@@ -17,14 +17,16 @@ class ProcessDocumentController extends Controller
     }
 
 
-    public function processDocument($id){
+    public function processDocument(Request $req, $id){
         $user = Auth::user();
+       
 
         $docTrack = DocumentTrack::with(['document', 'office'])
             ->find($id);
 
         $docTrack->is_process = 1;
         $docTrack->datetime_process = date('Y-m-d H:i:s');
+        $docTrack->process_remarks = $req->process_remarks;
         $docTrack->save();
         // DocumentTrack::with(['document', 'office'])
         //     ->where('document_track_id', $id)
@@ -38,7 +40,8 @@ class ProcessDocumentController extends Controller
             'action' => 'PROCESS',
             'action_datetime' => date('Y-m-d H:i'),
             'sys_user' => $user->lname . ', ' . $user->fname,
-            'office' => $docTrack->office->office
+            'office' => $docTrack->office->office,
+            'remarks' => $req->process_remarks
         ]);
 
         return response()->json([

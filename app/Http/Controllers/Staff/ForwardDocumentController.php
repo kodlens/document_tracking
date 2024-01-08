@@ -16,13 +16,15 @@ class ForwardDocumentController extends Controller
         $this->middleware('auth');
     }
 
-    public function forwardDocument($id, $docId){
+    public function forwardDocument(Request $req, $id, $docId){
         $user = Auth::user();
 
         $docTrack = DocumentTrack::find($id);
         $docTrack->is_forwarded = 1;
         $docTrack->datetime_forwarded = date('Y-m-d H:i:s');
         $docTrack->back_remarks = null;
+        $docTrack->forward_remarks = $req->forward_remarks;
+
         $docTrack->save();
 
         // DocumentTrack::where('document_track_id', $id)
@@ -32,7 +34,7 @@ class ForwardDocumentController extends Controller
         //         'back_remarks' => null
         //     ]);
         
-            //get the next track/office
+        //get the next track/office
         $nextData = DocumentTrack::with(['office', 'document'])
             ->where('document_id', $docId)
             ->where('is_forwarded', 0)
@@ -44,7 +46,7 @@ class ForwardDocumentController extends Controller
         if($nextData){
             //if has next office, execute this update
             $docTrack = DocumentTrack::with(['office', 'document'])
-                ->find($id);
+                ->find($nextData->document_track_id);
             $docTrack->is_forward_from = 1;
             $docTrack->save();
 
@@ -59,7 +61,8 @@ class ForwardDocumentController extends Controller
                 'action' => 'FORWARDED',
                 'action_datetime' => date('Y-m-d H:i'),
                 'sys_user' => $user->lname . ', ' . $user->fname,
-                'office' => $nextData->office->office
+                'office' => $nextData->office->office,
+                'remarks' => $req->forward_remarks
             ]);
             
         }else{
@@ -81,7 +84,8 @@ class ForwardDocumentController extends Controller
                 'action' => 'DONE/COMPLETED',
                 'action_datetime' => date('Y-m-d H:i'),
                 'sys_user' => $user->lname . ', ' . $user->fname,
-                'office' => 'DONE/COMPLETED'
+                'office' => 'DONE/COMPLETED',
+                'remarks' => $req->forward_remarks
             ]);
         }
 

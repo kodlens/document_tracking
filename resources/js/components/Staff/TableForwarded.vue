@@ -232,6 +232,150 @@
 
 
 
+        <!--modal received-->
+        <b-modal v-model="modalReceive" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Receive Remarks</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalReceive = false"/>
+                </header>
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks" label-position="on-border"
+                                        :type="errors.receive_remarks ? 'is-danger':''"
+                                        :message="errors.receive_remarks ? errors.receive_remarks[0] : ''">
+                                    <b-input v-model="fields.receive_remarks"
+                                        placeholder="Remarks" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+
+                    <b-button
+                        @click="receiveDocumentSubmit"
+                        :class="btnClass"
+                        icon-right="arrow-right"
+                        label="Receive"
+                        type="is-success"></b-button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
+
+        <!--modal process-->
+        <b-modal v-model="modalProcess" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Process Remarks</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalProcess = false"/>
+                </header>
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks" label-position="on-border"
+                                        :type="errors.process_remarks ? 'is-danger':''"
+                                        :message="errors.process_remarks ? errors.process_remarks[0] : ''">
+                                    <b-input v-model="fields.process_remarks"
+                                        placeholder="Remarks" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+
+                    <b-button
+                        @click="processDocumentSubmit"
+                        :class="btnClass"
+                        icon-right="arrow-right"
+                        label="Process"
+                        type="is-success"></b-button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
+
+
+
+        
+        <!--modal forward-->
+        <b-modal v-model="modalForward" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Forward Remarks</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalForward = false"/>
+                </header>
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks" label-position="on-border"
+                                        :type="errors.forward_remarks ? 'is-danger':''"
+                                        :message="errors.forward_remarks ? errors.forward_remarks[0] : ''">
+                                    <b-input v-model="fields.forward_remarks"
+                                        placeholder="Remarks" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+
+                    <b-button
+                        @click="forwardDocumentSubmit"
+                        :class="btnClass"
+                        icon-right="arrow-right"
+                        label="Forward"
+                        type="is-success"></b-button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
+
 
          <!--modal create-->
          <b-modal v-model="modalUnfoForwardReceive" has-modal-card
@@ -352,6 +496,10 @@ export default{
             },
 
             isModalCreate: false,
+
+            modalReceive: false,
+            modalProcess: false,
+            modalForward: false,
 
             fields: {},
 
@@ -533,76 +681,77 @@ export default{
         },
 
         receivedDocument(row){
-            this.$buefy.dialog.confirm({
-                title: 'Receive?',
-                type: 'is-info',
-                message: 'Are you sure you want receive the document now?',
-                cancelText: 'Cancel',
-                confirmText: 'Yes',
-                onConfirm: () => {
-                    axios.post('/document-receive/' + row.document_track_id).then(res=>{
-                        if(res.data.status === 'done'){
-                            this.$buefy.toast.open({
-                                duration: 5000,
-                                message: `<b>Done.</b>`,
-                                position: 'is-top',
-                                type: 'is-success'
-                            })
-                        this.loadAsyncData()
-                        }
-                    })
-                }
-            });
-        },
-        processDocument(row){
-            this.$buefy.dialog.confirm({
-                title: 'Process.',
-                type: 'is-info',
-                message: 'Mark document as process?',
-                cancelText: 'Cancel',
-                confirmText: 'Yes',
-                onConfirm: () => {
-                    axios.post('/document-process/' + row.document_track_id).then(res=>{
-                        if(res.data.status === 'processed'){
-                            this.$buefy.toast.open({
-                                duration: 5000,
-                                message: `<b>Done.</b>`,
-                                position: 'is-top',
-                                type: 'is-success'
-                            })
-                            this.loadAsyncData()
-                        }
-                    })
+            this.modalReceive = true
+            this.fields = {}
 
-                }
-            });
+            this.fields.receive_remarks = ''
+            this.fields.document_track_id = row.document_track_id
         },
+        receiveDocumentSubmit(){
+            axios.post('/document-receive/' + this.fields.document_track_id, this.fields).then(res=>{
+                if(res.data.status === 'done'){
+                    this.modalReceive = false
+                    this.$buefy.toast.open({
+                        duration: 5000,
+                        message: `<b>Done.</b>`,
+                        position: 'is-top',
+                        type: 'is-success'
+                    })
+                this.loadAsyncData()
+                }
+            })
+        },
+
+
+        processDocument(row){
+            this.modalProcess = true
+            this.fields = {}
+
+            this.fields.process_remarks = ''
+            this.fields.document_track_id = row.document_track_id
+        },
+        processDocumentSubmit(){
+            axios.post('/document-process/' + this.fields.document_track_id, this.fields).then(res=>{
+                if(res.data.status === 'processed'){
+                    this.modalProcess = false
+                    this.$buefy.toast.open({
+                        duration: 5000,
+                        message: `<b>Done.</b>`,
+                        position: 'is-top',
+                        type: 'is-success'
+                    })
+                    this.loadAsyncData()
+                }
+            })
+        },
+
+
+
 
         forwardDocument(row){
-            if(row.is_last > 0){
+            this.modalForward = true
+            this.fields = {}
 
-            }else{
-                
-            }
-            this.$buefy.dialog.confirm({
-                title: 'Forward?',
-                type: 'is-info',
-                message: 'Are you sure you want forward the document now?',
-                cancelText: 'Cancel',
-                confirmText: 'Forward',
-                onConfirm: () => {
-                    axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{
-                        this.$buefy.toast.open({
-                            duration: 5000,
-                            message: `<b>Done.</b>`,
-                            position: 'is-top',
-                            type: 'is-success'
-                        })
-                        //this.loadAsyncData()
-                        window.location = '/staff-documents'
-                    })
+            this.fields.forward_remarks = ''
+            this.fields.document_track_id = row.document_track_id,
+            this.fields.document_id = row.document_id
+
+        },
+        forwardDocumentSubmit(){
+            axios.post('/document-forward/' + this.fields.document_track_id + '/' + this.fields.document_id, this.fields).then(res=>{
+                if(res.data.status === 'forwarded'){
+                    this.modalForward = false
+                    // this.$buefy.toast.open({
+                    //     duration: 5000,
+                    //     message: `<b>Done.</b>`,
+                    //     position: 'is-top',
+                    //     type: 'is-success'
+                    // })
+                    //this.loadAsyncData()
+                    window.location = '/staff-documents'
                 }
-            });
+                
+            })
         },
         submitDoneWithRemarks(row){
             axios.post('/document-forward/' + row.document_track_id + '/' + row.document_id).then(res=>{

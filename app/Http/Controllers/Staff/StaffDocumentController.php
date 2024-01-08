@@ -64,11 +64,13 @@ class StaffDocumentController extends Controller
 
         //$data->is_forward_from = 1;
         $data->is_forwarded = 0;
+        $data->forward_remarks = null;
         $data->is_process = 0;
         $data->datetime_process = null;
 
 
         $data->is_received = 0;
+        $data->receive_remarks = null;
         $data->datetime_received = null;
 
         $data->back_remarks = $req->back_remarks;
@@ -77,7 +79,7 @@ class StaffDocumentController extends Controller
         $data->save();
 
         DocumentLog::create([
-            'tracking_no' => $data->document_tracking_no,
+            'tracking_no' => $data->document->tracking_no,
             'action' => 'RETURN',
             'action_datetime' => date('Y-m-d H:i'),
             'sys_user' => $user->lname . ', ' . $user->fname,
