@@ -104,10 +104,10 @@
                             <span v-else>FORWARD</span>
                         </b-dropdown-item>
                         <b-dropdown-item 
-                            v-if="props.row.is_process === 1 && props.row.is_received === 1 && props.row.is_forwarded === 1"
+                            v-if="props.row.is_received === 1"
                             aria-role="listitem" 
                             @click="undoForwardReceive(props.row)">
-                            Undo Receive & Process
+                            Undo Receive/Process
                         </b-dropdown-item>
 
                     </b-dropdown>

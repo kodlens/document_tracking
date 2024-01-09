@@ -39842,9 +39842,7 @@ var render = function () {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            props.row.is_process === 1 &&
-                            props.row.is_received === 1 &&
-                            props.row.is_forwarded === 1
+                            props.row.is_received === 1
                               ? _c(
                                   "b-dropdown-item",
                                   {
@@ -39857,7 +39855,7 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        Undo Receive & Process\n                    "
+                                      "\n                        Undo Receive/Process\n                    "
                                     ),
                                   ]
                                 )
