@@ -60,6 +60,16 @@
                                 {{ props.row.document_log_id }}
                             </b-table-column>
 
+                            <b-table-column field="tracking_no" label="Tracking No." v-slot="props">
+                                {{ props.row.tracking_no }}
+                            </b-table-column>
+
+                            <b-table-column field="document" label="Document" v-slot="props">
+                                <span v-if="props.row.document">
+                                    {{ props.row.document.document_name }}
+                                </span>
+                            </b-table-column>
+
                             <b-table-column field="action" label="Action" sortable v-slot="props">
                                 {{ props.row.action }}
                             </b-table-column>

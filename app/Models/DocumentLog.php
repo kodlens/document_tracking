@@ -22,5 +22,9 @@ class DocumentLog extends Model
     ];
 
 
+    public function document(){
+        return $this->hasOne(Document::class, 'tracking_no', 'tracking_no');
+    }
+
 
 }

@@ -19,7 +19,7 @@ class DocumentLogController extends Controller
     public function getDocumentLogs(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = DocumentLog::where('action', 'like', $req->action . '%')
+        $data = DocumentLog::with(['document'])->where('action', 'like', $req->action . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

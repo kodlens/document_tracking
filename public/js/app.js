@@ -7789,6 +7789,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -33619,6 +33629,46 @@ var render = function () {
                                 _vm._s(props.row.document_log_id) +
                                 "\n                        "
                             ),
+                          ]
+                        },
+                      },
+                    ]),
+                  }),
+                  _vm._v(" "),
+                  _c("b-table-column", {
+                    attrs: { field: "tracking_no", label: "Tracking No." },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function (props) {
+                          return [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(props.row.tracking_no) +
+                                "\n                        "
+                            ),
+                          ]
+                        },
+                      },
+                    ]),
+                  }),
+                  _vm._v(" "),
+                  _c("b-table-column", {
+                    attrs: { field: "document", label: "Document" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function (props) {
+                          return [
+                            props.row.document
+                              ? _c("span", [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(props.row.document.document_name) +
+                                      "\n                            "
+                                  ),
+                                ])
+                              : _vm._e(),
                           ]
                         },
                       },
