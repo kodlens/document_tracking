@@ -36,7 +36,7 @@ class Document extends Model
 
     public function document_logs(){
         return $this->hasMany(DocumentLog::class, 'tracking_no', 'tracking_no')
-            ->orderBy('document_log_id', 'asc');
+            ->orderBy('document_log_id', 'desc');
     }
     
 

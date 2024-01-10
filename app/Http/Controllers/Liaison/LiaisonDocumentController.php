@@ -123,6 +123,7 @@ class LiaisonDocumentController extends Controller
         
         
         $user = Auth::user();
+        
         DocumentLog::create([
             'tracking_no' => $data->tracking_no,
             'action' => 'FORWARDED',
