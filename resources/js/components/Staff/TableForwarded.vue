@@ -65,15 +65,31 @@
                 {{ props.row.document.document_name }}
             </b-table-column>
 
-            <b-table-column field="is_received" label="Status" v-slot="props">
-                <span v-if="props.row.is_received === 1" class="receive">
-                    Received
-                </span>
+            <b-table-column field="is_received" label="Receive" v-slot="props">
+                <div v-if="props.row.is_received === 1" class="receive">
+                    RECEIVED
+                </div>
+                <div v-if="props.row.datetime_received">
+                    {{ props.row.datetime_received | formatDateTime }}
+                </div>
             </b-table-column>
 
-            <b-table-column field="datetime_received" label="Date Received" v-slot="props">
-                <span v-if="props.row.datetime_received">
-                    {{ props.row.datetime_received | formatDateTime }}
+            <b-table-column field="is_process" label="Process" v-slot="props">
+                <div v-if="props.row.is_process === 1" class="process">Processing</div>
+                <div v-if="props.row.is_process === 1">
+                            {{ props.row.datetime_process | formatDateTime }}</div>
+            </b-table-column>
+
+            
+            <b-table-column field="done" label="Forward/Done" v-slot="props">
+                <div v-if="props.row.is_forwarded === 1 && props.row.is_done === 0" class="forward">
+                    Forwarded
+                </div>
+                <div v-if="props.row.is_forwarded === 1 && props.row.is_done === 1" class="done">
+                    Done
+                </div>
+                <span v-if="props.row.is_forwarded === 1">
+                    {{ props.row.datetime_forwarded | formatDateTime }}
                 </span>
             </b-table-column>
 
@@ -118,15 +134,15 @@
 
             <template slot="detail" slot-scope="props">
                 <tr>
-                    <th>Process Status</th>
+                    <!-- <th>Process Status</th>
                     <th>Process Date Time</th>
 
                     <th>Forward Status</th>
-                    <th>Forward Date Time</th>
+                    <th>Forward Date Time</th> -->
                     <th>Remarks</th>
                 </tr>
                 <tr>
-                    <td>
+                    <!-- <td>
                         <span v-if="props.row.is_process === 1" class="process">Processing</span>
                     </td>
                     <td>
@@ -146,7 +162,7 @@
                         <span v-if="props.row.is_forwarded === 1">
                             {{ props.row.datetime_forwarded | formatDateTime }}
                         </span>
-                    </td>
+                    </td> -->
                     <td>
                         <span v-if="props.row.back_remarks">{{ props.row.back_remarks }}</span></td>
                 </tr>
@@ -809,6 +825,7 @@ export default{
     .receive{
         background-color: #2a6ccf;
         color: #ffffff;
+        width: fit-content;
         padding: 6px 10px;
         border-radius: 5px;
     }
@@ -817,6 +834,8 @@ export default{
         background-color: #dd7336;
         color: #ffffff;
 
+        width: fit-content;
+
         padding: 6px 10px;
         border-radius: 5px;
     }
@@ -824,7 +843,9 @@ export default{
 
     .done{
         background-color: #0a8f46;
-        color: #333232;
+        color: #ffffff;
+
+        width: fit-content;
 
         padding: 6px 10px;
         border-radius: 5px;
@@ -834,6 +855,8 @@ export default{
         background-color: #0a8f46;
         color: #ffffff;
         padding: 6px 10px;
+        width: fit-content;
+
         border-radius: 5px;
     }
 </style>

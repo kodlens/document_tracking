@@ -11898,6 +11898,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -30727,7 +30743,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.receive[data-v-0951d8e0]{\n    background-color: #2a6ccf;\n    color: #ffffff;\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.process[data-v-0951d8e0]{\n    background-color: #dd7336;\n    color: #ffffff;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.done[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #333232;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.forward[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #ffffff;\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.receive[data-v-0951d8e0]{\n    background-color: #2a6ccf;\n    color: #ffffff;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.process[data-v-0951d8e0]{\n    background-color: #dd7336;\n    color: #ffffff;\n\n    width: -webkit-fit-content;\n\n    width: -moz-fit-content;\n\n    width: fit-content;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.done[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #ffffff;\n\n    width: -webkit-fit-content;\n\n    width: -moz-fit-content;\n\n    width: fit-content;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.forward[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #ffffff;\n    padding: 6px 10px;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n\n    border-radius: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39618,76 +39634,9 @@ var render = function () {
               key: "detail",
               fn: function (props) {
                 return [
-                  _c("tr", [
-                    _c("th", [_vm._v("Process Status")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Process Date Time")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Forward Status")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Forward Date Time")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Remarks")]),
-                  ]),
+                  _c("tr", [_c("th", [_vm._v("Remarks")])]),
                   _vm._v(" "),
                   _c("tr", [
-                    _c("td", [
-                      props.row.is_process === 1
-                        ? _c("span", { staticClass: "process" }, [
-                            _vm._v("Processing"),
-                          ])
-                        : _vm._e(),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      props.row.is_process === 1
-                        ? _c("span", [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  _vm._f("formatDateTime")(
-                                    props.row.datetime_process
-                                  )
-                                )
-                            ),
-                          ])
-                        : _vm._e(),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      props.row.is_forwarded === 1 && props.row.is_done === 0
-                        ? _c("span", { staticClass: "forward" }, [
-                            _vm._v(
-                              "\n                        Forwarded\n                    "
-                            ),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      props.row.is_forwarded === 1 && props.row.is_done === 1
-                        ? _c("span", { staticClass: "done" }, [
-                            _vm._v(
-                              "\n                        Done\n                    "
-                            ),
-                          ])
-                        : _vm._e(),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      props.row.is_forwarded === 1
-                        ? _c("span", [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  _vm._f("formatDateTime")(
-                                    props.row.datetime_forwarded
-                                  )
-                                ) +
-                                "\n                    "
-                            ),
-                          ])
-                        : _vm._e(),
-                    ]),
-                    _vm._v(" "),
                     _c("td", [
                       props.row.back_remarks
                         ? _c("span", [_vm._v(_vm._s(props.row.back_remarks))])
@@ -39755,15 +39704,29 @@ var render = function () {
           }),
           _vm._v(" "),
           _c("b-table-column", {
-            attrs: { field: "is_received", label: "Status" },
+            attrs: { field: "is_received", label: "Receive" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function (props) {
                   return [
                     props.row.is_received === 1
-                      ? _c("span", { staticClass: "receive" }, [
-                          _vm._v("\n                Received\n            "),
+                      ? _c("div", { staticClass: "receive" }, [
+                          _vm._v("\n                RECEIVED\n            "),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.row.datetime_received
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(
+                                _vm._f("formatDateTime")(
+                                  props.row.datetime_received
+                                )
+                              ) +
+                              "\n            "
+                          ),
                         ])
                       : _vm._e(),
                   ]
@@ -39773,19 +39736,62 @@ var render = function () {
           }),
           _vm._v(" "),
           _c("b-table-column", {
-            attrs: { field: "datetime_received", label: "Date Received" },
+            attrs: { field: "is_process", label: "Process" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function (props) {
                   return [
-                    props.row.datetime_received
+                    props.row.is_process === 1
+                      ? _c("div", { staticClass: "process" }, [
+                          _vm._v("Processing"),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.row.is_process === 1
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(
+                                _vm._f("formatDateTime")(
+                                  props.row.datetime_process
+                                )
+                              )
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]
+                },
+              },
+            ]),
+          }),
+          _vm._v(" "),
+          _c("b-table-column", {
+            attrs: { field: "done", label: "Forward/Done" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function (props) {
+                  return [
+                    props.row.is_forwarded === 1 && props.row.is_done === 0
+                      ? _c("div", { staticClass: "forward" }, [
+                          _vm._v("\n                Forwarded\n            "),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.row.is_forwarded === 1 && props.row.is_done === 1
+                      ? _c("div", { staticClass: "done" }, [
+                          _vm._v("\n                Done\n            "),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.row.is_forwarded === 1
                       ? _c("span", [
                           _vm._v(
                             "\n                " +
                               _vm._s(
                                 _vm._f("formatDateTime")(
-                                  props.row.datetime_received
+                                  props.row.datetime_forwarded
                                 )
                               ) +
                               "\n            "
