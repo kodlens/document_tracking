@@ -30727,7 +30727,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.process[data-v-0951d8e0]{\n    padding: 10px;\n    background-color: green;\n    color: white;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.receive[data-v-0951d8e0]{\n    background-color: #2a6ccf;\n    color: #ffffff;\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.process[data-v-0951d8e0]{\n    background-color: #dd7336;\n    color: #ffffff;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.done[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #333232;\n\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n.forward[data-v-0951d8e0]{\n    background-color: #0a8f46;\n    color: #ffffff;\n    padding: 6px 10px;\n    border-radius: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39656,7 +39656,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("td", [
                       props.row.is_forwarded === 1 && props.row.is_done === 0
-                        ? _c("span", { staticClass: "process" }, [
+                        ? _c("span", { staticClass: "forward" }, [
                             _vm._v(
                               "\n                        Forwarded\n                    "
                             ),
@@ -39664,7 +39664,7 @@ var render = function () {
                         : _vm._e(),
                       _vm._v(" "),
                       props.row.is_forwarded === 1 && props.row.is_done === 1
-                        ? _c("span", { staticClass: "process" }, [
+                        ? _c("span", { staticClass: "done" }, [
                             _vm._v(
                               "\n                        Done\n                    "
                             ),
@@ -39755,14 +39755,14 @@ var render = function () {
           }),
           _vm._v(" "),
           _c("b-table-column", {
-            attrs: { field: "is_received", label: "Received Status" },
+            attrs: { field: "is_received", label: "Status" },
             scopedSlots: _vm._u([
               {
                 key: "default",
                 fn: function (props) {
                   return [
                     props.row.is_received === 1
-                      ? _c("span", { staticClass: "process" }, [
+                      ? _c("span", { staticClass: "receive" }, [
                           _vm._v("\n                Received\n            "),
                         ])
                       : _vm._e(),

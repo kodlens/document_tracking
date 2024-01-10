@@ -65,8 +65,8 @@
                 {{ props.row.document.document_name }}
             </b-table-column>
 
-            <b-table-column field="is_received" label="Received Status" v-slot="props">
-                <span v-if="props.row.is_received === 1" class="process">
+            <b-table-column field="is_received" label="Status" v-slot="props">
+                <span v-if="props.row.is_received === 1" class="receive">
                     Received
                 </span>
             </b-table-column>
@@ -135,10 +135,10 @@
                     </td>
 
                     <td>
-                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 0" class="process">
+                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 0" class="forward">
                             Forwarded
                         </span>
-                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 1" class="process">
+                        <span v-if="props.row.is_forwarded === 1 && props.row.is_done === 1" class="done">
                             Done
                         </span>
                     </td>
@@ -805,10 +805,35 @@ export default{
 
 
 <style scoped>
-    .process{
-        padding: 10px;
-        background-color: green;
-        color: white;
+
+    .receive{
+        background-color: #2a6ccf;
+        color: #ffffff;
+        padding: 6px 10px;
+        border-radius: 5px;
     }
 
+    .process{
+        background-color: #dd7336;
+        color: #ffffff;
+
+        padding: 6px 10px;
+        border-radius: 5px;
+    }
+  
+
+    .done{
+        background-color: #0a8f46;
+        color: #333232;
+
+        padding: 6px 10px;
+        border-radius: 5px;
+    }
+
+    .forward{
+        background-color: #0a8f46;
+        color: #ffffff;
+        padding: 6px 10px;
+        border-radius: 5px;
+    }
 </style>
